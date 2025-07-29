@@ -4,11 +4,6 @@ namespace App\Services\Landlord\Actions\Auth;
 
 use App\DTOs\RestPasswordDTO;
 use App\Enum\VerificationCodeType;
-use App\Exceptions\VerificationCode\CodeExpiredException;
-use App\Exceptions\VerificationCode\CodeNotFoundException;
-use App\Exceptions\VerificationCode\MaxAttemptsExceededException;
-use App\Helpers\ApiResponse;
-use App\Http\Requests\RestPasswordRequest;
 use App\Services\BaseService;
 use App\Services\Landlord\UserService;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,9 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ForgetPasswordService extends BaseService
 {
-    public function __construct(private readonly UserService $landlordUserService, private readonly VerificationCodeService $verificationCodeService)
-    {
-    }
+    public function __construct(private readonly UserService $landlordUserService, private readonly VerificationCodeService $verificationCodeService) {}
 
     /**
      * @throws \Throwable
@@ -28,18 +21,18 @@ class ForgetPasswordService extends BaseService
     {
         return DB::connection('landlord')
             ->transaction(function () use ($dto) {
-            $user = $this->landlordUserService->findByKey('email', $dto->email);
-            // Verify the code
-            $this->verificationCodeService->verifyCode(
-                email: $user->email,
-                type: VerificationCodeType::RESET_PASSWORD->value,
-                code: $dto->code
-            );
-            // Update password
-            $user->password = Hash::make($dto->password);
+                $user = $this->landlordUserService->findByKey('email', $dto->email);
+                // Verify the code
+                $this->verificationCodeService->verifyCode(
+                    email: $user->email,
+                    type: VerificationCodeType::RESET_PASSWORD->value,
+                    code: $dto->code
+                );
+                // Update password
+                $user->password = Hash::make($dto->password);
 
-            return $user->save();
-        });
+                return $user->save();
+            });
 
     }
 

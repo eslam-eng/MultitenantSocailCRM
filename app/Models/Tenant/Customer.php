@@ -2,9 +2,19 @@
 
 namespace App\Models\Tenant;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Enum\CustomerSourceEnum;
+use App\Enum\CustomerStatusEnum;
 
-class Customer extends Model
+class Customer extends BaseTenantModel
 {
-    //
+    protected $fillable = [
+        'name', 'country_code', 'phone', 'email',
+        'source', 'address', 'country', 'city', 'zipcode', 'status', 'tags',
+    ];
+
+    protected $casts = [
+        'source' => CustomerSourceEnum::class,
+        'status' => CustomerStatusEnum::class,
+        'tags' => 'array',
+    ];
 }

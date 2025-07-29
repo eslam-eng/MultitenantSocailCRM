@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('campaign_customers', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Tenant\Campaign::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Tenant\Customer::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

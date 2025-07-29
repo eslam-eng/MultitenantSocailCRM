@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Landlord;
 
-use App\Models\Feature;
+use App\Models\Landlord\Feature;
 use Illuminate\Database\Seeder;
 
 class FeatureTableSeeder extends Seeder

@@ -23,12 +23,12 @@ return [
     'active' => 'Active',
     'inactive' => 'Inactive',
 
-    'subscription'=>[
-        'pending'=>'Pending',
-        'active'=>'Active',
-        'canceled'=>'Canceled',
-        'expired'=>'Expired',
-        'suspended'=>'Suspended',
-        'past_due'=>'Past Due'
+    'subscription' => [
+        'pending' => 'Pending',
+        'active' => 'Active',
+        'canceled' => 'Canceled',
+        'expired' => 'Expired',
+        'suspended' => 'Suspended',
+        'past_due' => 'Past Due',
     ],
 ];

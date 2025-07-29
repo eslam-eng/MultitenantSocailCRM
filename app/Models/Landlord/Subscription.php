@@ -23,7 +23,7 @@ class Subscription extends BaseLandlordModel
         'ends_at',
         'trial_ends_at',
         'auto_renew',
-        'plan_snapshot'
+        'plan_snapshot',
     ];
 
     protected $casts = [
@@ -55,8 +55,9 @@ class Subscription extends BaseLandlordModel
     protected function planName(): Attribute
     {
         $locale = app()->getLocale();
+
         return Attribute::make(
-            get: fn() => Arr::get($this->plan_snapshot, 'name.' . $locale, $this->plan_snapshot['name']['en']) ?? null
+            get: fn () => Arr::get($this->plan_snapshot, 'name.'.$locale, $this->plan_snapshot['name']['en']) ?? null
         );
 
     }

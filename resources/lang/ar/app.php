@@ -23,12 +23,12 @@ return [
 
     'active' => 'نشط',
     'inactive' => 'غير نشط',
-    'subscription'=>[
-      'pending'=>'قيد الانتظار',
-      'active'=>'نشط',
-      'canceled'=>'ملغي',
-      'expired'=>'منتهي',
-      'suspended'=>'معلق',
-      'past_due'=>'متأخر عن السداد'
+    'subscription' => [
+        'pending' => 'قيد الانتظار',
+        'active' => 'نشط',
+        'canceled' => 'ملغي',
+        'expired' => 'منتهي',
+        'suspended' => 'معلق',
+        'past_due' => 'متأخر عن السداد',
     ],
 ];

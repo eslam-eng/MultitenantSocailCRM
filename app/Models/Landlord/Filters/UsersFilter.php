@@ -36,5 +36,4 @@ class UsersFilter extends QueryFilter
     {
         return $this->builder->where('status', $term);
     }
-
 }

@@ -24,15 +24,15 @@ class TenantResource extends JsonResource
 
             'email' => $this->when(
                 $this->relationLoaded('owner'),
-                fn() => $this->owner?->email,
+                fn () => $this->owner?->email,
             ),
 
-            'package' => $this->when($subscriptionRelationLoaded, fn() => $this->subscription->plan_name),
-            'package_price' => $this->when($subscriptionRelationLoaded, fn() => Arr::get($this->subscription->plan_snapshot, 'price')),
+            'package' => $this->when($subscriptionRelationLoaded, fn () => $this->subscription->plan_name),
+            'package_price' => $this->when($subscriptionRelationLoaded, fn () => Arr::get($this->subscription->plan_snapshot, 'price')),
             'is_active' => $this->is_active->value,
             'is_active_text' => $this->is_active->getLabel(),
-            'subscription_status' => $this->when($subscriptionRelationLoaded, fn() => $this->subscription->status->value),
-            'subscription_status_text' => $this->when($subscriptionRelationLoaded, fn() => $this->subscription->status->getLabel())
+            'subscription_status' => $this->when($subscriptionRelationLoaded, fn () => $this->subscription->status->value),
+            'subscription_status_text' => $this->when($subscriptionRelationLoaded, fn () => $this->subscription->status->getLabel()),
         ];
     }
 }

@@ -19,23 +19,20 @@ class AuthController extends Controller
             $user = $authService->authenticate($credentials);
 
             $tenant = $user->tenant;
-            if (!$tenant || !$tenant->status) {
+            if (! $tenant || ! $tenant->status) {
                 return response()->json(['error' => 'Tenant not active'], 403);
             }
 
             $tenant->makeCurrent();
 
             // Create tenant-specific token
-            $token = $user->generateToken(name: 'multi-tenant-access',abilities: ['tenant:' . $tenant->id]);
+            $token = $user->generateToken(name: 'multi-tenant-access', abilities: ['tenant:'.$tenant->id]);
 
             $data = [
                 'token' => $token,
                 'user' => AuthUserResource::make($user),
-                'tenant' => [
-                    'name' => $tenant->name,
-                    'slug' => $tenant->slug,
-                ],
             ];
+
             return ApiResponse::success(data: $data);
         } catch (UnauthorizedHttpException $e) {
             return ApiResponse::unauthorized(__('auth.failed'), []);

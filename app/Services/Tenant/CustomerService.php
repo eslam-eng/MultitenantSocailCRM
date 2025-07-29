@@ -6,7 +6,6 @@ use App\DTOs\CustomerDTO;
 use App\Enum\CustomerStatusEnum;
 use App\Models\Customer;
 use App\Models\Filters\CustomersFilter;
-use App\Models\Tag;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -49,7 +48,7 @@ class CustomerService extends BaseService
 
         return [
             'total' => $total,
-            'statuses' => $normalized
+            'statuses' => $normalized,
         ];
     }
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Landlord;
 
 use App\Enum\FeatureGroupEnum;
-use App\Models\Feature;
-use App\Models\FeaturePlan;
-use App\Models\Plan;
+use App\Models\Landlord\Feature;
+use App\Models\Landlord\FeaturePlan;
+use App\Models\Landlord\Plan;
 use Illuminate\Database\Seeder;
 
 class FeaturePlanTableSeeder extends Seeder

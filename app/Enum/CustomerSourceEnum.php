@@ -11,7 +11,7 @@ enum CustomerSourceEnum: int
     {
         return match ($this) {
             self::MANUAL => 'Manual',
-            self::WEBSITE => "website",
+            self::WEBSITE => 'website',
         };
     }
 

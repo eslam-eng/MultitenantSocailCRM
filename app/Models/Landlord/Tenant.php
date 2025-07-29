@@ -9,10 +9,10 @@ use Illuminate\Support\Str;
 class Tenant extends \Spatie\Multitenancy\Models\Tenant
 {
     use SoftDeletes;
-    protected $fillable = [
-        'name', 'slug', 'database', 'status'
-    ];
 
+    protected $fillable = [
+        'name', 'slug', 'database', 'status',
+    ];
 
     public function users()
     {
@@ -20,6 +20,7 @@ class Tenant extends \Spatie\Multitenancy\Models\Tenant
             ->withPivot('is_owner')
             ->withTimestamps();
     }
+
     protected static function boot(): void
     {
         parent::boot();
@@ -27,7 +28,7 @@ class Tenant extends \Spatie\Multitenancy\Models\Tenant
         static::creating(function ($tenant) {
             // Generate database name if not provided
             if (empty($tenant->database)) {
-                $tenant->database = 'tenant_' . Str::slug($tenant->name) . '_' . time();
+                $tenant->database = 'tenant_'.Str::slug($tenant->name).'_'.time();
             }
         });
 
@@ -45,7 +46,6 @@ class Tenant extends \Spatie\Multitenancy\Models\Tenant
 
     public static function createDatabase($database_name): bool
     {
-       return DB::statement("CREATE DATABASE IF NOT EXISTS `$database_name`");
+        return DB::statement("CREATE DATABASE IF NOT EXISTS `$database_name`");
     }
-
 }

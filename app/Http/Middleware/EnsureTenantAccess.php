@@ -19,13 +19,13 @@ class EnsureTenantAccess
         $user = auth()->user();
         $currentTenant = Tenant::current();
 
-        if (!$user || !$currentTenant) {
+        if (! $user || ! $currentTenant) {
             return response()->json(['error' => 'No tenant context'], 403);
         }
 
         // Check if the user's token scope matches the current tenant
         $token = $user->currentAccessToken();
-        if (!$token->can('tenant:' . $currentTenant->id)) {
+        if (! $token->can('tenant:'.$currentTenant->id)) {
             return response()->json(['error' => 'Unauthorized tenant access'], 403);
         }
 

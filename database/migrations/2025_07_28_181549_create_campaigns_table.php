@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\CampaignStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,8 +14,6 @@ return new class extends Migration
     {
         Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
-            $table->ulid('tenant_id');
-            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
             $table->timestamp('started_at')->nullable();
             $table->timestamp('scheduled_at')->nullable();
             $table->timestamp('completed_at')->nullable();

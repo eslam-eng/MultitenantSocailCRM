@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\Landlord\Auth\SendVerificationCodeController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest', 'prefix' => 'auth'], function () {
-
     Route::middleware('throttle:login')->group(function () {
         Route::post('login', AuthController::class);
         Route::post('register', RegisterController::class);
@@ -21,4 +20,3 @@ Route::prefix('auth')->middleware(['throttle:verification_code'])->group(functio
     Route::post('send-verification-code', SendVerificationCodeController::class);
     Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword']);
 });
-

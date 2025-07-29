@@ -12,26 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('features', function (Blueprint $table) {
-            Schema::create('features', function (Blueprint $table) {
-                $table->id();
-                $table->string('slug');
-                $table->json('name'); // as it will be translatable
-                $table->tinyInteger('group')->comment('is features for limits or for modules values from enum Feature Group'); // limit = numeric quota, feature = boolean
-                $table->text('description')->nullable();
-                $table->boolean('is_active')->default(true);
-                $table->softDeletes();
-                $table->timestamps();
-            });
+            $table->id();
+            $table->string('slug');
+            $table->json('name'); // as it will be translatable
+            $table->tinyInteger('group')->comment('is features for limits or for modules values from enum Feature Group'); // limit = numeric quota, feature = boolean
+            $table->text('description')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->softDeletes();
+            $table->timestamps();
+            // Virtual column that is null if deleted_at is not null
+            $table->string('active_slug')->virtualAs('IF(deleted_at IS NULL, slug, NULL)');
 
-            // After table creation, run raw SQL
-            DB::statement('
-                            ALTER TABLE features
-                            ADD COLUMN slug_unique VARCHAR(255)
-                            GENERATED ALWAYS AS (IF(deleted_at IS NULL, slug, NULL)) STORED
-                        ');
-
-            DB::statement('CREATE UNIQUE INDEX unique_slug_not_deleted ON features (slug_unique)');
-
+            // Unique constraint on the virtual column
+            $table->unique('active_slug');
         });
     }
 

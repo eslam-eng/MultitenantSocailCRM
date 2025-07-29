@@ -25,8 +25,9 @@ class SubscriptionService extends BaseService
     public function create(SubscriptionPlanDTO $subscriptionPlanDTO)
     {
         $subscriptionData = $subscriptionPlanDTO->toArray();
-        if (!empty($subscriptionPlanDTO->plan_snapshot))
+        if (! empty($subscriptionPlanDTO->plan_snapshot)) {
             $subscriptionData['plan_snapshot'] = json_encode($subscriptionPlanDTO->plan_snapshot);
+        }
 
         return $this->getQuery()->create($subscriptionData);
     }

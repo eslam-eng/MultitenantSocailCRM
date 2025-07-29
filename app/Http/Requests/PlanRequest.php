@@ -46,7 +46,7 @@ class PlanRequest extends BaseFormRequest
     {
         $this->merge([
             'is_active' => $this->boolean('is_active'),
-            'currency_code' => 'USD'
+            'currency_code' => 'USD',
         ]);
     }
 }

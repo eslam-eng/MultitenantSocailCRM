@@ -9,8 +9,8 @@ use Spatie\Permission\PermissionRegistrar;
 
 class SwitchTenantRolesPermissionsTask implements SwitchTenantTask
 {
-
     protected mixed $originalRoleModel;
+
     protected mixed $originalPermissionModel;
 
     public function __construct()
@@ -86,5 +86,4 @@ class SwitchTenantRolesPermissionsTask implements SwitchTenantTask
         app()->forgetInstance(PermissionRegistrar::class);
         app(PermissionRegistrar::class)->registerPermissions();
     }
-
 }

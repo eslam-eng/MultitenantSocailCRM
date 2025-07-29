@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
 class CustomerDTO extends BaseDTO
 {
     public function __construct(
-        public string  $name,
+        public string $name,
         public ?string $country_code = null,
         public ?string $phone = null,
         public ?string $email = null,
@@ -20,13 +20,11 @@ class CustomerDTO extends BaseDTO
         public ?string $city = null,
         public ?string $zipcode = null,
         public ?string $address = null,
-        public ?array  $tags = null,
+        public ?array $tags = null,
         public ?string $notes = null,
-        public int     $source = CustomerSourceEnum::MANUAL->value,
-        public int     $status = CustomerStatusEnum::ACTIVE->value,
-    )
-    {
-    }
+        public int $source = CustomerSourceEnum::MANUAL->value,
+        public int $status = CustomerStatusEnum::ACTIVE->value,
+    ) {}
 
     public static function fromArray(array $data): static
     {

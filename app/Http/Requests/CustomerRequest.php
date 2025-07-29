@@ -24,17 +24,18 @@ class CustomerRequest extends BaseFormRequest
     public function rules()
     {
         $countriesData = countriesData();
+
         return [
             'name' => 'required|string|max:255',
-            'country_code' => ['required','string',Rule::in($countriesData->pluck('dial_code')->toArray())],
-            'phone' => ['nullable','string',Rule::unique('customers','phone')->ignore($this->customer)],
+            'country_code' => ['required', 'string', Rule::in($countriesData->pluck('dial_code')->toArray())],
+            'phone' => ['nullable', 'string', Rule::unique('customers', 'phone')->ignore($this->customer)],
             'email' => 'nullable|email',
-            'tags'=>'nullable|array|min:1',
-            'country'=>'required|string',
-            'city'=>'nullable|string',
-            'address'=>'required|string',
-            'zipcode'=>'nullable|string',
-            'notes'=>'nullable|string|max:190',
+            'tags' => 'nullable|array|min:1',
+            'country' => 'required|string',
+            'city' => 'nullable|string',
+            'address' => 'required|string',
+            'zipcode' => 'nullable|string',
+            'notes' => 'nullable|string|max:190',
 
         ];
     }

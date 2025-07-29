@@ -10,6 +10,7 @@ use Spatie\Translatable\HasTranslations;
 class Feature extends BaseLandlordModel
 {
     use HasTranslatedFallback,HasTranslations,SoftDeletes;
+
     protected $fillable = ['slug', 'name', 'description', 'group', 'is_active'];
 
     public $translatable = ['name', 'description'];
@@ -34,5 +35,4 @@ class Feature extends BaseLandlordModel
             $feature->slug = Str::slug($feature->getTranslation('name', 'en'));
         });
     }
-
 }

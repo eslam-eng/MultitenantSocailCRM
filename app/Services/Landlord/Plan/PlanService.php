@@ -41,6 +41,7 @@ class PlanService extends BaseService
             $plan = $this->getQuery()->create($planDTO->toArray());
             $allFeaturesToAttach = $this->prepareFeaturesAndLimits($planDTO);
             $plan->features()->attach($allFeaturesToAttach);
+
             return $plan;
         });
     }
@@ -52,14 +53,14 @@ class PlanService extends BaseService
     {
         $plan = $this->findById($plan);
 
-        return DB::transaction(function () use ($planDTO,$plan) {
-            $plan->update($planDTO->toArrayExcept(['features','limits']));
+        return DB::transaction(function () use ($planDTO, $plan) {
+            $plan->update($planDTO->toArrayExcept(['features', 'limits']));
             $allFeaturesToAttach = $this->prepareFeaturesAndLimits($planDTO);
             $plan->features()->sync($allFeaturesToAttach);
+
             return $plan;
         });
     }
-
 
     /**
      * Prepare combined features and limits array for sync/attach
@@ -76,6 +77,7 @@ class PlanService extends BaseService
 
         return array_merge($features, $limits);
     }
+
     public function delete(int $plan_id): ?bool
     {
         $plan = $this->findById($plan_id);

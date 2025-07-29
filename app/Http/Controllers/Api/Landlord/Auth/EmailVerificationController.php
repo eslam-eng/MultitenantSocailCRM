@@ -30,7 +30,7 @@ class EmailVerificationController extends Controller
                 );
             }
 
-            if (!$user->email_verified_at) {
+            if (! $user->email_verified_at) {
                 $this->verificationService->verifyCode($user->email, 'email_verification', $request->code);
 
                 $user->email_verified_at = now();

@@ -34,15 +34,14 @@ class TenantsTableSeeder extends Seeder
             $planSnapshot['name'] = $plan->getTranslations('name');
             // Create subscription for the tenant
             $subscription = Subscription::query()->create([
-                'tenant_id'=> $tenant->id,
+                'tenant_id' => $tenant->id,
                 'plan_id' => $plan->id,
                 'status' => SubscriptionStatusEnum::ACTIVE->value,
                 'starts_at' => now(),
                 'ends_at' => now()->addDays($plan->trial_days),
                 'auto_renew' => ActivationStatusEnum::INACTIVE->value,
-                'plan_snapshot' => json_encode($planSnapshot)
+                'plan_snapshot' => json_encode($planSnapshot),
             ]);
-
 
             // 3. Snapshot plan features and limits to pivot table
             $allFeatures = $plan->features; // Assuming this returns all features (including limits)
@@ -52,14 +51,15 @@ class TenantsTableSeeder extends Seeder
             foreach ($allFeatures as $feature) {
                 $pivotData = $feature->pivot?->value ?? null;
 
-                if (!$pivotData)
+                if (! $pivotData) {
                     continue;
+                }
 
                 $snapshot[$feature->id] = [
                     'value' => $pivotData,
-                    'slug'=>$feature->slug,
-                    'name'=>json_encode($feature->getTranslations('name')),
-                    'group'=>$feature->group
+                    'slug' => $feature->slug,
+                    'name' => json_encode($feature->getTranslations('name')),
+                    'group' => $feature->group,
                 ];
             }
             // 4. Attach to feature_plan_subscription pivot

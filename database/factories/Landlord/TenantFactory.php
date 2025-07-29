@@ -23,9 +23,10 @@ class TenantFactory extends Factory
     public function definition(): array
     {
         $name = fake()->name;
+
         return [
             'name' => $name,
-            'slug' => fake()->slug(2),
+            'slug' => Str::slug(fake()->words(2, true), '_'), // e.g., "fresh_tomato"
         ];
     }
 }

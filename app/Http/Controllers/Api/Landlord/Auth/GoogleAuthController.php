@@ -12,9 +12,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GoogleAuthController extends Controller
 {
-    public function __construct(protected readonly SocialAuthService $socialAuthService)
-    {
-    }
+    public function __construct(protected readonly SocialAuthService $socialAuthService) {}
 
     public function redirectToProvider(string $provider = 'google')
     {
@@ -27,7 +25,7 @@ class GoogleAuthController extends Controller
     {
         try {
 
-            if ($request->get('access_token') == null || $request->get('access_token') == "") {
+            if ($request->get('access_token') == null || $request->get('access_token') == '') {
                 return ApiResponse::badRequest(message: 'Access token is missing');
             }
 
@@ -37,7 +35,7 @@ class GoogleAuthController extends Controller
             $currentTenant->makeCurrent();
 
             // Create tenant-specific token
-            $token = $user->generateToken(name: 'multi-tenant-access',abilities: ['tenant:' . $currentTenant->id]);
+            $token = $user->generateToken(name: 'multi-tenant-access', abilities: ['tenant:'.$currentTenant->id]);
 
             $data = [
                 'token' => $token,

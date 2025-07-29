@@ -12,9 +12,9 @@ class CampaignDTO extends BaseDTO
     public function __construct(
         public string $channel,
         public string $target,
-        public ?int $template_id = null,
-        public ?string $title = null,
-        public ?string $body = null,
+        public ?int $template_id,
+        public ?string $title,
+        public ?string $body,
         public string $campaign_type,
         public ?string $scheduled_at = null,
         public ?array $media_ids = null,

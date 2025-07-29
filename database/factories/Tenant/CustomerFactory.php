@@ -2,34 +2,58 @@
 
 namespace Database\Factories\Tenant;
 
+use App\Enum\CustomerSourceEnum;
+use App\Enum\CustomerStatusEnum;
+use App\Models\Tenant\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tenant\User>
- */
 class CustomerFactory extends Factory
 {
+    protected $model = Customer::class;
 
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => $this->faker->name(),
+            'country_code' => $this->faker->countryCode(),
+            'phone' => $this->faker->phoneNumber(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'source' => $this->faker->randomElement(CustomerSourceEnum::cases()),
+            'address' => $this->faker->address(),
+            'country' => $this->faker->country,
+            'city' => $this->faker->city,
+            'zipcode' => $this->faker->postcode,
+            'status' => $this->faker->randomElement(CustomerStatusEnum::cases()),
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Set customer status to active
      */
-    public function unverified(): static
+    public function active(): static
     {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'status' => CustomerStatusEnum::ACTIVE,
+        ]);
+    }
+
+    /**
+     * Set customer as lead
+     */
+    public function lead(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => CustomerStatusEnum::LEAD,
+        ]);
+    }
+
+    /**
+     * Set customer source as website
+     */
+    public function fromWebsite(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'source' => CustomerSourceEnum::WEBSITE,
         ]);
     }
 }

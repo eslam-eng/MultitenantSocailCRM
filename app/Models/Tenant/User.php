@@ -14,7 +14,7 @@ use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;
 class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\Landlord\UserFactory> */
-    use HasFactory,HasApiTokens, Notifiable,UsesTenantConnection,InteractsWithMedia;
+    use HasApiTokens,HasFactory, InteractsWithMedia,Notifiable,UsesTenantConnection;
 
     /**
      * The attributes that are mass assignable.
@@ -24,11 +24,13 @@ class User extends Authenticatable implements HasMedia
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'phone',
         'landlord_user_id',
         'locale',
         'timezone',
-        'is_active'
+        'is_active',
+        'device_token',
+        'landlord_user_id',
     ];
 
     /**

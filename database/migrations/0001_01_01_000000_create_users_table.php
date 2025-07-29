@@ -5,7 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -20,7 +21,7 @@ return new class extends Migration {
             $table->string('device_token')->nullable();
             $table->boolean('is_active')->default(ActivationStatusEnum::ACTIVE->value);
             $table->string('locale')->default('en');
-            $table->string('timezone')->nullable();
+            $table->string('timezone')->default('UTC');
             $table->string('landlord_user_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

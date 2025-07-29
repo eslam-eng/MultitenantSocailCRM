@@ -6,8 +6,9 @@ use App\Models\Landlord\Tenant;
 use App\Models\Tenant\User;
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
+
 class ResolveTenantUser
 {
     /**

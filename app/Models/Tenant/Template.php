@@ -2,7 +2,6 @@
 
 namespace App\Models\Tenant;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Template extends BaseTenantModel
@@ -28,6 +27,7 @@ class Template extends BaseTenantModel
     {
         return $this->hasMany(TemplateVariable::class);
     }
+
     public function campaigns(): HasMany
     {
         return $this->hasMany(Campaign::class);

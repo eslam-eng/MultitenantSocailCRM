@@ -24,9 +24,9 @@ class CustomerResource extends JsonResource
             'source' => $this->source->getLabel(),
             'country' => $this->country,
             'city' => $this->city,
-            'zipcode'=>$this->zipcode,
-            'notes'=>$this->notes,
-            'tags'=>$this->tags
+            'zipcode' => $this->zipcode,
+            'notes' => $this->notes,
+            'tags' => $this->tags,
         ];
     }
 }

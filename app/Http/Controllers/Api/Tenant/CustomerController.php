@@ -18,8 +18,9 @@ class CustomerController extends Controller
     {
         dd(auth()->user());
         Customer::create([
-            'name'=>'created from request'
+            'name' => 'created from request',
         ]);
-        return response()->json(['message'=>'created']);
+
+        return response()->json(['message' => 'created']);
     }
 }

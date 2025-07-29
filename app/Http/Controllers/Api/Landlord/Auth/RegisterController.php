@@ -17,7 +17,6 @@ class RegisterController extends Controller
      */
     public function __invoke(RegisterRequest $request, RegisterService $registerService, VerificationCodeService $verificationCodeService)
     {
-        $user = null;
         try {
             $userDTO = UserDTO::fromRequest($request);
 
@@ -37,7 +36,6 @@ class RegisterController extends Controller
 
             return ApiResponse::success(data: $data);
         } catch (\Exception $e) {
-            dd($e);
             return ApiResponse::error(message: 'there is an error please try again later or contact with support for fast response');
         }
     }

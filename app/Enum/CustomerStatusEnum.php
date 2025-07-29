@@ -19,10 +19,10 @@ enum CustomerStatusEnum: int
     {
         return match ($this) {
             self::INACTIVE => 'INACTIVE',
-            self::ACTIVE => "ACTIVE",
-            self::LEAD => "LEAD",
-            self::CUSTOMER => "CUSTOMER",
-            self::PROSPECT => "PROSPECT",
+            self::ACTIVE => 'ACTIVE',
+            self::LEAD => 'LEAD',
+            self::CUSTOMER => 'CUSTOMER',
+            self::PROSPECT => 'PROSPECT',
         };
     }
 }

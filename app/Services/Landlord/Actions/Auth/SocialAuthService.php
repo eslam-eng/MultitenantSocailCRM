@@ -19,7 +19,7 @@ readonly class SocialAuthService
      *
      * @throws UnauthorizedHttpException
      */
-    public function handle(string $provider_name,string $access_token): User
+    public function handle(string $provider_name, string $access_token): User
     {
         // check that provider name in available providers
         if (! in_array($provider_name, AvailableSocialProvidersEnum::values())) {

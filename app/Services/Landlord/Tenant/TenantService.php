@@ -14,9 +14,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class TenantService extends BaseService
 {
-    public function __construct(protected readonly SubscriptionService $planSubscriptionService)
-    {
-    }
+    public function __construct(protected readonly SubscriptionService $planSubscriptionService) {}
 
     protected function getFilterClass(): ?string
     {
@@ -27,7 +25,6 @@ class TenantService extends BaseService
     {
         return Tenant::query();
     }
-
 
     public function paginate(array $filters = []): LengthAwarePaginator
     {
@@ -51,7 +48,7 @@ class TenantService extends BaseService
         return [
             'trial_count' => $trialCount,
             'active_count' => $totalActiveAndTrial,
-            'total_users' => User::query()->count()
+            'total_users' => User::query()->count(),
         ];
 
     }

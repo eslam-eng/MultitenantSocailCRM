@@ -11,8 +11,7 @@ class UsersTableSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->count(5)->create();
-        $users = User::all();
-        
+        $user1 = User::factory()->create(['email' => 'eslam@gmail.com']);
+        $user2 = User::factory()->create(['email' => 'eslam2@gmail.com']);
     }
 }

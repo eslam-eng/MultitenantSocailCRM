@@ -2,8 +2,6 @@
 
 namespace App\Models\Landlord;
 
-use Illuminate\Database\Eloquent\Model;
-
 class VerificationCode extends BaseLandlordModel
 {
     protected $fillable = [
@@ -27,5 +25,4 @@ class VerificationCode extends BaseLandlordModel
     {
         return $this->attempts >= 5; // Configure max attempts as needed
     }
-
 }

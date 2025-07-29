@@ -12,8 +12,8 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-
     protected $model = \App\Models\Landlord\User::class;
+
     /**
      * The current password being used by the factory.
      */

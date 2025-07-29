@@ -15,7 +15,7 @@ use Spatie\Multitenancy\Models\Concerns\UsesLandlordConnection;
 class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\Landlord\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, UsesLandlordConnection, InteractsWithMedia;
+    use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable, UsesLandlordConnection;
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +26,7 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
-        'tenant_id'
+        'tenant_id',
     ];
 
     /**
@@ -39,7 +39,7 @@ class User extends Authenticatable implements HasMedia
         'remember_token',
     ];
 
-    //current tenant
+    // current tenant
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);

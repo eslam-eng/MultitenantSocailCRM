@@ -22,41 +22,36 @@ readonly class RegisterService
      * Inject UsersService via constructor.
      */
     public function __construct(
-        protected readonly UserService                      $userService,
+        protected readonly UserService $userService,
         protected readonly \App\Services\Tenant\UserService $tenantUserService,
-        protected readonly TenantService                    $tenantService,
-        protected PlanService                               $planService,
+        protected readonly TenantService $tenantService,
+        protected PlanService $planService,
         protected SubscriptionService $planSubscriptionService
-    )
-    {
-    }
+    ) {}
 
     /**
      * @throws \Throwable
      */
     public function handle(UserDTO $registerDTO): User
     {
-        return DB::connection('landlord')->transaction(fn() => $this->registerUserWithTenant($registerDTO));
+        return DB::connection('landlord')->transaction(fn () => $this->registerUserWithTenant($registerDTO));
     }
 
     private function registerUserWithTenant(UserDTO $registerDTO)
     {
         $tenant = $this->createTenantFromDTO($registerDTO);
-        //create landlord user
+        // create landlord user
         $user = $this->createUser($registerDTO, $tenant);
         $this->setupFreeTrial($tenant);
+
         return $user->fresh();
     }
 
     private function createTenantFromDTO(UserDTO $registerDTO): Tenant
     {
-
-        // 1. Get the part before @
-        $slugBase = explode('@', $registerDTO->email)[0];
-
         $tenantDTO = new TenantDTO(
             name: $registerDTO->organization_name,
-            slug: Str::slug($slugBase)
+            slug: Str::slug($registerDTO->organization_name)
         );
 
         return $this->tenantService->create($tenantDTO);

@@ -4,7 +4,6 @@ namespace App\Patterns\States\Subscription;
 
 use App\Enum\SubscriptionStatusEnum;
 use App\Models\Landlord\Subscription;
-use App\Models\PlanSubscription;
 
 abstract class SubscriptionState
 {
