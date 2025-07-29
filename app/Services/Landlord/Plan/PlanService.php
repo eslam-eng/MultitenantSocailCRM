@@ -27,6 +27,18 @@ class PlanService extends BaseService
         return $this->getQuery()->trial()->first();
     }
 
+    public function statics()
+    {
+        return $stats = $this->getQuery()
+            ->selectRaw("
+                            AVG(
+                                (monthly_price + (annual_price / 12) + (lifetime_price / 36)) / 3
+                            ) AS avg_price,
+                            COUNT(*) AS total_plans,
+                            SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) AS active_plans")
+            ->first();
+    }
+
     public function paginate(array $filters = [], array $withRelation = []): LengthAwarePaginator
     {
         return $this->getQuery(filters: $filters, withRelation: $withRelation)

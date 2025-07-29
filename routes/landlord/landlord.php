@@ -33,6 +33,7 @@ Route::prefix('auth')->group(function () {
 Route::group(['middleware' => 'auth:landlord'], function () {
     Route::get('tenants/statics', [TenantController::class, 'statics']);
     Route::apiResource('tenants', TenantController::class);
+    Route::get('plans/statics', [PlanController::class,'statics']);
     Route::apiResource('plans', PlanController::class);
     Route::apiResource('features', FeatureController::class)->only(['index']);
 });

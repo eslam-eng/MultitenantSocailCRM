@@ -12,7 +12,9 @@ use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {
-    public function __construct(protected PlanService $planService) {}
+    public function __construct(protected PlanService $planService)
+    {
+    }
 
     /**
      * Display a listing of the resource.
@@ -54,6 +56,14 @@ class PlanController extends Controller
         $plan = $this->planService->findById(id: $id, withRelation: $withRelations);
 
         return ApiResponse::success(data: PlanResource::make($plan));
+    }
+
+    public function statics()
+    {
+        $statics = $this->planService->statics();
+        //overwrite avg price value to be rounded
+        $statics['avg_price'] = round($statics['avg_price'], 2);
+        return ApiResponse::success(data: $statics);
     }
 
     /**
