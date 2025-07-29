@@ -9,11 +9,12 @@ use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\Api\CustomerResource;
 use App\Services\Tenant\CustomerService;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CustomerController extends Controller
 {
-    public function __construct(protected readonly CustomerService $customerService) {}
+    public function __construct(protected readonly CustomerService $customerService)
+    {
+    }
 
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class CustomerController extends Controller
         $filters = array_filter([
             'name' => $request->name ?? null,
             'status' => $request->status ?? null,
-        ], fn ($value) => ! is_null($value) && $value !== '');
+        ], fn($value) => !is_null($value) && $value !== '');
 
         $customers = $this->customerService->paginate($filters);
 
@@ -36,9 +37,8 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request)
     {
         $customerDTO = CustomerDTO::fromRequest($request);
-        $customer = $this->customerService->create($customerDTO);
-
-        return ApiResponse::success(data: CustomerResource::make($customer), message: __('app.customer_created_successfully'));
+        $this->customerService->create($customerDTO);
+        return ApiResponse::success(message: __('app.customer_created_successfully'));
 
     }
 
@@ -47,13 +47,9 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        try {
-            $customer = $this->customerService->findById($id);
+        $customer = $this->customerService->findById($id);
 
-            return ApiResponse::success(data: CustomerResource::make($customer));
-        } catch (NotFoundHttpException $exception) {
-            return ApiResponse::notFound(message: $exception->getMessage());
-        }
+        return ApiResponse::success(data: CustomerResource::make($customer));
     }
 
     public function statics()
@@ -68,15 +64,10 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, string $customer)
     {
-        try {
-            $customerDTO = CustomerDTO::fromRequest($request);
-            $customer = $this->customerService->update(id: $customer, customerDTO: $customerDTO);
+        $customerDTO = CustomerDTO::fromRequest($request);
+        $this->customerService->update(id: $customer, customerDTO: $customerDTO);
 
-            return ApiResponse::success(data: CustomerResource::make($customer), message: __('app.customer_updated_successfully'));
-        } catch (NotFoundHttpException $exception) {
-            return ApiResponse::notFound(message: $exception->getMessage());
-        }
-
+        return ApiResponse::success(message: __('app.customer_updated_successfully'));
     }
 
     /**
@@ -84,12 +75,9 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        try {
-            $this->customerService->delete($id);
+        $this->customerService->delete($id);
 
-            return ApiResponse::success(message: 'Customer deleted successfully');
-        } catch (NotFoundHttpException $e) {
-            return ApiResponse::notFound(message: 'Customer not found');
-        }
+        return ApiResponse::success(message: 'Customer deleted successfully');
+
     }
 }

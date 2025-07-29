@@ -9,11 +9,12 @@ use App\Http\Requests\PlanRequest;
 use App\Http\Resources\Api\SuperAdmin\PlanResource;
 use App\Services\Landlord\Plan\PlanService;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PlanController extends Controller
 {
-    public function __construct(protected PlanService $planService) {}
+    public function __construct(protected PlanService $planService)
+    {
+    }
 
     /**
      * Display a listing of the resource.
@@ -43,7 +44,7 @@ class PlanController extends Controller
         $planDTO = PlanDTO::fromRequest($request);
         $plan = $this->planService->create(planDTO: $planDTO);
 
-        return ApiResponse::success(data: PlanResource::make($plan->loadMissing(['limitFeatures', 'addonFeatures'])), message: __('app.plan_created_successfully'));
+        return ApiResponse::success(message: __('app.plan_created_successfully'));
     }
 
     /**
@@ -62,15 +63,10 @@ class PlanController extends Controller
      */
     public function update(PlanRequest $request, string $id)
     {
-        try {
-            $planDTO = PlanDTO::fromRequest($request);
-            $plan = $this->planService->update(planDTO: $planDTO, plan: $id);
+        $planDTO = PlanDTO::fromRequest($request);
+        $plan = $this->planService->update(planDTO: $planDTO, plan: $id);
 
-            return ApiResponse::success(data: PlanResource::make($plan->loadMissing(['limitFeatures', 'addonFeatures'])), message: __('app.plan_updated_successfully'));
-        } catch (NotFoundHttpException $e) {
-            return ApiResponse::notFound(message: 'Plan not found');
-        }
-
+        return ApiResponse::success(message: __('app.plan_updated_successfully'));
     }
 
     /**
@@ -78,12 +74,7 @@ class PlanController extends Controller
      */
     public function destroy(string $id)
     {
-        try {
-            $this->planService->delete($id);
-
-            return ApiResponse::success(message: 'Plan deleted successfully');
-        } catch (NotFoundHttpException $e) {
-            return ApiResponse::notFound(message: 'Plan not found');
-        }
+        $this->planService->delete($id);
+        return ApiResponse::success(message: 'Plan deleted successfully');
     }
 }
