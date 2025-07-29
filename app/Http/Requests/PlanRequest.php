@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enum\SubscriptionDurationEnum;
+use App\Enum\ActivationStatusEnum;
 use App\Rules\ValidCurrencyCode;
 use Illuminate\Validation\Rule;
 
@@ -28,24 +28,25 @@ class PlanRequest extends BaseFormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('plans', 'name')->ignore($this->plan),
+                Rule::unique('plans', 'name')->whereNull('deleted_at')->ignore($this->plan),
             ],
             'description' => 'string|nullable',
-            'price' => 'numeric|required|min:0',
-            'billing_cycle' => ['required', Rule::in(SubscriptionDurationEnum::values())],
+            'monthly_price' => 'nullable|numeric|min:1|required_without_all:annual_price,lifetime_price',
+            'annual_price' => 'nullable|numeric|min:1|required_without_all:monthly_price,lifetime_price',
+            'lifetime_price' => 'nullable|numeric|min:1|required_without_all:monthly_price,annual_price',
             'is_active' => 'required|boolean',
-            'trial_days' => 'required|integer|min:1',
+            'trial_days' => 'nullable|integer|min:0',
             'currency_code' => ['required', 'string', new ValidCurrencyCode],
             'refund_days' => 'nullable|integer|min:0',
-            'features' => 'array|nullable|min:1',
-            'limits' => 'array|nullable|min:1',
+            'features' => 'nullable|array|min:1',
+            'limits' => 'nullable|array||min:1',
         ];
     }
 
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'is_active' => $this->boolean('is_active'),
+            'is_active' => $this->boolean('is_active', ACtivationStatusEnum::ACTIVE->value),
             'currency_code' => 'USD',
         ]);
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Landlord;
 
-use App\Models\Admin;
+use App\Models\Landlord\Admin;
 use Illuminate\Database\Seeder;
 
 class AdminTableSeeder extends Seeder

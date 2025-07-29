@@ -3,7 +3,6 @@
 namespace Database\Factories\Landlord;
 
 use App\Enum\ActivationStatusEnum;
-use App\Enum\SubscriptionDurationEnum;
 use App\Models\Landlord\Plan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,15 +19,18 @@ class PlanFactory extends Factory
     {
         return [
             'name' => [
-                'ar' => fake()->slug(),
-                'en' => fake()->slug(),
+                'ar' => fake()->slug(3),
+                'en' => fake()->slug(3),
+                'fr' => fake()->slug(3),
+                'sp' => fake()->slug(3),
             ],
             'description' => [
                 'ar' => fake()->sentence(10),
                 'en' => fake()->sentence(10),
             ],
-            'price' => fake()->numberBetween(30, 50),
-            'billing_cycle' => fake()->randomElement(SubscriptionDurationEnum::values()),
+            'monthly_price' => fake()->numberBetween(30, 50),
+            'annual_price' => fake()->numberBetween(30, 50),
+            'lifetime_price' => fake()->numberBetween(30, 50),
             'is_active' => fake()->randomElement(ActivationStatusEnum::values()),
             'trial_days' => 14,  // Common trial period of 14 days
             'sort_order' => fake()->numberBetween(1, 100),

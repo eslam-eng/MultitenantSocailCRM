@@ -16,15 +16,17 @@ use App\Services\Landlord\UserService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-readonly class RegisterService
+class RegisterService
 {
+    private ?Tenant $createdTenant = null;
+
     /**
      * Inject UsersService via constructor.
      */
     public function __construct(
-        protected readonly UserService $userService,
-        protected readonly \App\Services\Tenant\UserService $tenantUserService,
-        protected readonly TenantService $tenantService,
+        protected UserService $userService,
+        protected \App\Services\Tenant\UserService $tenantUserService,
+        protected TenantService $tenantService,
         protected PlanService $planService,
         protected SubscriptionService $planSubscriptionService
     ) {}
@@ -34,12 +36,24 @@ readonly class RegisterService
      */
     public function handle(UserDTO $registerDTO): User
     {
-        return DB::connection('landlord')->transaction(fn () => $this->registerUserWithTenant($registerDTO));
+
+        try {
+            return DB::connection('landlord')->transaction(function () use ($registerDTO) {
+                return $this->registerUserWithTenant($registerDTO);
+            });
+        } catch (\Throwable $e) {
+            // If tenant was created, drop its database
+            if ($this->createdTenant && $this->createdTenant->database) {
+                $this->dropTenantDatabase($this->createdTenant->database);
+            }
+            throw $e;
+        }
     }
 
     private function registerUserWithTenant(UserDTO $registerDTO)
     {
         $tenant = $this->createTenantFromDTO($registerDTO);
+        $this->createdTenant = $tenant; // Track for cleanup
         // create landlord user
         $user = $this->createUser($registerDTO, $tenant);
         $this->setupFreeTrial($tenant);
@@ -62,10 +76,9 @@ readonly class RegisterService
         $registerDTO->tenant_id = $tenant->id;
 
         $landlordUser = $this->userService->create($registerDTO);
-
         $this->tenantUserService->create($registerDTO);
-
         $tenant->users()->attach($landlordUser->id, ['is_owner' => true]);
+        $tenant->forgetCurrent();
 
         return $landlordUser;
     }
@@ -106,7 +119,7 @@ readonly class RegisterService
         $featuresToAttach = [];
         foreach ($plan->features as $feature) {
             $featuresToAttach[] = [
-                'plan_subscription_id' => $subscription->id,
+                'subscription_id' => $subscription->id,
                 'feature_id' => $feature->id,
                 'slug' => $feature->slug,
                 'name' => json_encode($feature->getTranslations('name')),
@@ -115,5 +128,11 @@ readonly class RegisterService
             ];
         }
         $subscription->features()->sync($featuresToAttach);
+    }
+
+    // Drop the tenant database if needed
+    private function dropTenantDatabase(string $databaseName): void
+    {
+        DB::statement("DROP DATABASE IF EXISTS `$databaseName`");
     }
 }

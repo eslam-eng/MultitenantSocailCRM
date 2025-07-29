@@ -19,15 +19,15 @@ class PlanResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'currency' => $this->currency,
-            'price' => $this->price,
+            'monthly_price' => $this->monthly_price,
+            'annual_price' => $this->annual_price,
+            'lifetime_price' => $this->lifetime_price,
             'is_active' => $this->is_active,
             'is_active_text' => $this->is_active->getLabel(),
-            'billing_cycle' => $this->billing_cycle,
-            'billing_cycle_text' => $this->billing_cycle->getLabel(),
             'trial_days' => $this->trial_days,
             'refund_days' => $this->refund_days,
-            'features' => FeatureResource::collection($this->whenLoaded('limitFeatures')),
-            'limits' => FeatureResource::collection($this->whenLoaded('addonFeatures')),
+            'limits' => FeatureResource::collection($this->whenLoaded('limitFeatures')),
+            'features' => FeatureResource::collection($this->whenLoaded('addonFeatures')),
         ];
     }
 }

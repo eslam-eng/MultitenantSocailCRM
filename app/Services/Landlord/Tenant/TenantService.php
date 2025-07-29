@@ -4,8 +4,8 @@ namespace App\Services\Landlord\Tenant;
 
 use App\DTOs\TenantDTO;
 use App\Enum\SubscriptionStatusEnum;
-use App\Models\Tenant;
-use App\Models\User;
+use App\Models\Landlord\Tenant;
+use App\Models\Landlord\User;
 use App\Services\BaseService;
 use App\Services\Landlord\Plan\SubscriptionService;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,7 +33,7 @@ class TenantService extends BaseService
             ->paginate();
     }
 
-    public function statics()
+    public function statics(): array
     {
         $countsGroupedByStatus = $this->planSubscriptionService->staticsByStatus();
 

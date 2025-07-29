@@ -26,6 +26,11 @@ class ApiResponse
         ], $code);
     }
 
+    public static function serverError(string $message = 'Server Error', $errors = []): JsonResponse
+    {
+        return self::error($message, $errors, Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
     public static function badRequest(string $message = 'Bad Request', $errors = []): JsonResponse
     {
         return self::error($message, $errors, Response::HTTP_BAD_REQUEST);

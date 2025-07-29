@@ -21,4 +21,14 @@ class FeaturesFilter extends QueryFilter
     {
         return $this->builder->whereIntegerNotInRaw('id', Arr::wrap($term));
     }
+
+    public function is_active()
+    {
+        return $this->builder->where('is_active', true);
+    }
+
+    public function group($term)
+    {
+        return $this->builder->where('group', $term);
+    }
 }

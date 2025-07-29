@@ -3,7 +3,7 @@
 namespace App\Services\Landlord\Actions\Auth;
 
 use App\DTOs\AuthCredentialsDTO;
-use App\Models\Admin;
+use App\Models\Landlord\Admin;
 use App\Services\Landlord\AdminsService;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;

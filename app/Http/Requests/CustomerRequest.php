@@ -28,10 +28,9 @@ class CustomerRequest extends BaseFormRequest
         return [
             'name' => 'required|string|max:255',
             'country_code' => ['required', 'string', Rule::in($countriesData->pluck('dial_code')->toArray())],
-            'phone' => ['nullable', 'string', Rule::unique('customers', 'phone')->ignore($this->customer)],
+            'phone' => ['nullable', 'string', Rule::unique('tenant.customers', 'phone')->ignore($this->customer)],
             'email' => 'nullable|email',
             'tags' => 'nullable|array|min:1',
-            'country' => 'required|string',
             'city' => 'nullable|string',
             'address' => 'required|string',
             'zipcode' => 'nullable|string',

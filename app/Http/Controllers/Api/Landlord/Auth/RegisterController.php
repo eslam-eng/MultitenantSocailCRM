@@ -36,6 +36,8 @@ class RegisterController extends Controller
 
             return ApiResponse::success(data: $data);
         } catch (\Exception $e) {
+            dd($e);
+
             return ApiResponse::error(message: 'there is an error please try again later or contact with support for fast response');
         }
     }

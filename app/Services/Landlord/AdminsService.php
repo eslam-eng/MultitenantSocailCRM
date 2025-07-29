@@ -2,8 +2,8 @@
 
 namespace App\Services\Landlord;
 
-use App\Models\Admin;
-use App\Models\Filters\AdminsFilter;
+use App\Models\Landlord\Admin;
+use App\Models\Landlord\Filters\AdminsFilter;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
 

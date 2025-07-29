@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\ApiResponse;
 use App\Models\Landlord\Tenant;
 use Closure;
 use Illuminate\Http\Request;
@@ -20,13 +21,13 @@ class EnsureTenantAccess
         $currentTenant = Tenant::current();
 
         if (! $user || ! $currentTenant) {
-            return response()->json(['error' => 'No tenant context'], 403);
+            return ApiResponse::unauthorized(message: 'Unauthorized tenant access No Tenant Provided in url');
         }
 
         // Check if the user's token scope matches the current tenant
         $token = $user->currentAccessToken();
         if (! $token->can('tenant:'.$currentTenant->id)) {
-            return response()->json(['error' => 'Unauthorized tenant access'], 403);
+            return ApiResponse::unauthorized(message: 'Unauthorized tenant access');
         }
 
         return $next($request);

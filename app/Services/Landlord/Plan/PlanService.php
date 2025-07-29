@@ -29,7 +29,10 @@ class PlanService extends BaseService
 
     public function paginate(array $filters = [], array $withRelation = []): LengthAwarePaginator
     {
-        return $this->getQuery(filters: $filters, withRelation: $withRelation)->paginate();
+        return $this->getQuery(filters: $filters, withRelation: $withRelation)
+            ->orderBy('id')
+            ->orderBy('sort_order')
+            ->paginate();
     }
 
     /**
@@ -38,7 +41,13 @@ class PlanService extends BaseService
     public function create(PlanDTO $planDTO)
     {
         return DB::connection('landlord')->transaction(function () use ($planDTO) {
-            $plan = $this->getQuery()->create($planDTO->toArray());
+            $planData = $planDTO->toArray();
+            $planData['name'] = [];
+            foreach (config('app.supported_locales') as $locale) {
+                $planData['name'][$locale] = $planDTO->name; // or provide translation per locale
+            }
+            $plan = $this->getQuery()->create($planData);
+
             $allFeaturesToAttach = $this->prepareFeaturesAndLimits($planDTO);
             $plan->features()->attach($allFeaturesToAttach);
 
@@ -53,9 +62,16 @@ class PlanService extends BaseService
     {
         $plan = $this->findById($plan);
 
-        return DB::transaction(function () use ($planDTO, $plan) {
-            $plan->update($planDTO->toArrayExcept(['features', 'limits']));
+        return DB::connection('landlord')->transaction(function () use ($planDTO, $plan) {
+            $planData = $planDTO->toArrayExcept(['features', 'limits']);
+            $planData['name'] = [];
+            foreach (config('app.supported_locales') as $locale) {
+                $planData['name'][$locale] = $planDTO->name; // or provide translation per locale
+            }
+            $plan->update($planData);
+
             $allFeaturesToAttach = $this->prepareFeaturesAndLimits($planDTO);
+
             $plan->features()->sync($allFeaturesToAttach);
 
             return $plan;
@@ -67,15 +83,21 @@ class PlanService extends BaseService
      */
     private function prepareFeaturesAndLimits(PlanDTO $planDTO): array
     {
-        $features = collect($planDTO->features ?? [])->mapWithKeys(function ($value, $id) {
-            return [$id => ['value' => $value]];
-        })->all();
+        //        $features = collect($planDTO->features ?? [])->mapWithKeys(function ($value, $id) {
+        //            return [
+        //                $id => [
+        //                    'value' => $value ?? null,
+        //                ]
+        //            ];
+        //        })->all();
 
-        $limits = collect($planDTO->limits ?? [])->mapWithKeys(function ($value, $id) {
-            return [$id => ['value' => $value]];
+        return collect($planDTO->limits ?? [])->mapWithKeys(function ($value, $id) {
+            return [
+                $id => [
+                    'value' => $value,
+                ],
+            ];
         })->all();
-
-        return array_merge($features, $limits);
     }
 
     public function delete(int $plan_id): ?bool

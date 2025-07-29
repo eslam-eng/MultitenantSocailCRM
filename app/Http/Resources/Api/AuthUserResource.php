@@ -21,9 +21,9 @@ class AuthUserResource extends JsonResource
             'locale' => $this->locale,
             'tenant_id' => $this->tenant_id,
             'tenant_name' => $this->tenant?->name,
-            'tenant_name' => $this->tenant?->slug,
+            'tenant_slug' => $this->tenant?->slug,
             'is_verified' => isset($this->email_verified_at),
-            'is_super_admin' => false,
+            'belongs_to' => 'TENANT',
         ];
     }
 }

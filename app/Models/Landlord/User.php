@@ -3,6 +3,7 @@
 namespace App\Models\Landlord;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +16,7 @@ use Spatie\Multitenancy\Models\Concerns\UsesLandlordConnection;
 class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\Landlord\UserFactory> */
-    use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable, UsesLandlordConnection;
+    use Filterable, HasApiTokens, HasFactory, InteractsWithMedia, Notifiable,UsesLandlordConnection;
 
     /**
      * The attributes that are mass assignable.

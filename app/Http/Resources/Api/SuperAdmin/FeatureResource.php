@@ -25,8 +25,7 @@ class FeatureResource extends JsonResource
             'is_active' => $this->is_active,
             'is_active_text' => ActivationStatusEnum::from($this->is_active)->getLabel(),
             'value' => $this->whenPivotLoaded('feature_plans', fn () => $this->pivot->value)
-                ?? $this->whenPivotLoaded('feature_plan_subscriptions', fn () => $this->pivot->value),
-
+                ?? $this->whenPivotLoaded('feature_subscriptions', fn () => $this->pivot->value),
         ];
     }
 }

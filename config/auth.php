@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'landlord' => [
+            'driver' => 'sanctum',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -65,6 +69,10 @@ return [
             'model' => env('AUTH_MODEL', \App\Models\Tenant\User::class),
         ],
 
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Landlord\Admin::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

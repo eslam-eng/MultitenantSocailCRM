@@ -20,7 +20,7 @@ class AuthUserResource extends JsonResource
             'email' => $this->email,
             'locale' => $this->locale,
             'phone' => $this->phone,
-            'is_super_admin' => true,
+            'belongs_to' => 'LANDLORD',
 
         ];
     }

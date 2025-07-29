@@ -3,10 +3,11 @@
 namespace App\Services\Landlord;
 
 use App\DTOs\FeatureDTO;
-use App\Models\Feature;
-use App\Models\Filters\FeaturesFilter;
+use App\Models\Landlord\Feature;
+use App\Models\Landlord\Filters\FeaturesFilter;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -15,6 +16,11 @@ class FeatureService extends BaseService
     public function paginate(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {
         return $this->getQuery(filters: $filters)->paginate($perPage);
+    }
+
+    public function getFeatures(?array $filters = []): Collection
+    {
+        return $this->getQuery(filters: $filters)->get();
     }
 
     public function create(FeatureDTO $dto): Feature

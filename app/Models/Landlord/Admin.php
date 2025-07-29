@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Tenant;
+namespace App\Models\Landlord;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\Filterable;
@@ -10,12 +10,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;
+use Spatie\Multitenancy\Models\Concerns\UsesLandlordConnection;
 
-class User extends Authenticatable implements HasMedia
+class Admin extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\Landlord\UserFactory> */
-    use Filterable,HasApiTokens, HasFactory,InteractsWithMedia,Notifiable,UsesTenantConnection;
+    use Filterable, HasApiTokens, HasFactory, InteractsWithMedia, Notifiable,UsesLandlordConnection;
 
     /**
      * The attributes that are mass assignable.
@@ -25,13 +25,12 @@ class User extends Authenticatable implements HasMedia
     protected $fillable = [
         'name',
         'email',
+        'password',
         'phone',
-        'landlord_user_id',
         'locale',
-        'timezone',
+        'country',
         'is_active',
-        'device_token',
-        'landlord_user_id',
+        'email_verified_at',
     ];
 
     /**
@@ -44,11 +43,11 @@ class User extends Authenticatable implements HasMedia
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    public function generateToken(string $name = 'admin_token', array $abilities = ['*']): string
+    {
+        return $this->createToken($name, $abilities)->plainTextToken;
+    }
+
     protected function casts(): array
     {
         return [

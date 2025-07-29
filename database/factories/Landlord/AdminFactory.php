@@ -3,9 +3,7 @@
 namespace Database\Factories\Landlord;
 
 use App\Enum\ActivationStatusEnum;
-use App\Models\Admin;
-use App\Models\Tenant;
-use App\Models\User;
+use App\Models\Landlord\Admin;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,16 +33,6 @@ class AdminFactory extends Factory
             'is_active' => ActivationStatusEnum::ACTIVE->value,
             'email_verified_at' => now(),
         ];
-    }
-
-    /**
-     * Set a specific tenant ID for the user.
-     */
-    public function forTenant(string $tenantId): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'tenant_id' => $tenantId,
-        ]);
     }
 
     /**

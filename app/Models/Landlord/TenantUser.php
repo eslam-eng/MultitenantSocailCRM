@@ -2,9 +2,9 @@
 
 namespace App\Models\Landlord;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class TenantUser extends Model
+class TenantUser extends Pivot
 {
     //
 }

@@ -4,7 +4,6 @@ namespace App\Models\Landlord;
 
 use App\Enum\ActivationStatusEnum;
 use App\Enum\FeatureGroupEnum;
-use App\Enum\SubscriptionDurationEnum;
 use App\Traits\HasTranslatedFallback;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,27 +16,30 @@ class Plan extends BaseLandlordModel
     protected $fillable = [
         'name',
         'description',
-        'price',
-        'billing_cycle',
+        'monthly_price',
+        'annual_price',
+        'lifetime_price',
         'is_active',
         'trial_days',
         'sort_order',
-        'currency',
+        'currency_code',
         'refund_days',
     ];
 
     public $translatable = ['name', 'description'];
 
     protected $casts = [
-        'price' => 'decimal:2',
+        'monthly_price' => 'decimal:2',
+        'annual_price' => 'decimal:2',
+        'lifetime_price' => 'decimal:2',
         'is_active' => ActivationStatusEnum::class,
-        'billing_cycle' => SubscriptionDurationEnum::class,
     ];
 
     public function features()
     {
         return $this->belongsToMany(Feature::class, 'feature_plans')
-            ->withPivot('value')
+            ->withPivot(['value', 'is_unlimited'])
+            ->withTimestamps()
             ->using(FeaturePlan::class);
     }
 

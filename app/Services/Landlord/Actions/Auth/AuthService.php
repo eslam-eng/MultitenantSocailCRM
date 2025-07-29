@@ -4,7 +4,7 @@ namespace App\Services\Landlord\Actions\Auth;
 
 use App\DTOs\AuthCredentialsDTO;
 use App\Models\Landlord\User;
-use App\Services\Tenant\UserService;
+use App\Services\Landlord\UserService;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
@@ -13,7 +13,7 @@ readonly class AuthService
     /**
      * Inject UsersService via constructor.
      */
-    public function __construct(protected UserService $usersService) {}
+    public function __construct(protected UserService $landlordUserService) {}
 
     /**
      * Attempt to login with credentials and return user or unauthorized exception.
@@ -24,7 +24,7 @@ readonly class AuthService
     {
         $filterKey = preg_match('/^\d+$/', $credentials->identifier) ? 'phone' : 'email';
         $filters = [$filterKey => $credentials->identifier];
-        $user = $this->usersService->getQuery($filters)->first();
+        $user = $this->landlordUserService->getQuery($filters)->first();
         if (! $user || ! Hash::check($credentials->password, $user->password)) {
             throw new UnauthorizedHttpException('', __('auth.failed'));
         }
