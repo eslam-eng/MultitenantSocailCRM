@@ -12,9 +12,7 @@ use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {
-    public function __construct(protected PlanService $planService)
-    {
-    }
+    public function __construct(protected PlanService $planService) {}
 
     /**
      * Display a listing of the resource.
@@ -75,6 +73,7 @@ class PlanController extends Controller
     public function destroy(string $id)
     {
         $this->planService->delete($id);
+
         return ApiResponse::success(message: 'Plan deleted successfully');
     }
 }

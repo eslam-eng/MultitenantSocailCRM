@@ -12,9 +12,7 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function __construct(protected readonly CustomerService $customerService)
-    {
-    }
+    public function __construct(protected readonly CustomerService $customerService) {}
 
     /**
      * Display a listing of the resource.
@@ -24,7 +22,7 @@ class CustomerController extends Controller
         $filters = array_filter([
             'name' => $request->name ?? null,
             'status' => $request->status ?? null,
-        ], fn($value) => !is_null($value) && $value !== '');
+        ], fn ($value) => ! is_null($value) && $value !== '');
 
         $customers = $this->customerService->paginate($filters);
 
@@ -38,6 +36,7 @@ class CustomerController extends Controller
     {
         $customerDTO = CustomerDTO::fromRequest($request);
         $this->customerService->create($customerDTO);
+
         return ApiResponse::success(message: __('app.customer_created_successfully'));
 
     }
