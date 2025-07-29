@@ -30,12 +30,12 @@ class PlanService extends BaseService
     public function statics()
     {
         return $stats = $this->getQuery()
-            ->selectRaw("
+            ->selectRaw('
                             AVG(
                                 (monthly_price + (annual_price / 12) + (lifetime_price / 36)) / 3
                             ) AS avg_price,
                             COUNT(*) AS total_plans,
-                            SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) AS active_plans")
+                            SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) AS active_plans')
             ->first();
     }
 
