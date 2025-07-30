@@ -31,6 +31,23 @@ class ApiResponse
         return self::error($message, $errors, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
+    public static function tooManyRequests($message = 'Too many requests', $data = null, $retryAfter = null)
+    {
+        $response = response()->json([
+            'success' => false,
+            'message' => $message,
+            'data' => $data,
+            'error_code' => 'TOO_MANY_REQUESTS'
+        ], 429);
+
+        // Add Retry-After header if provided
+        if ($retryAfter) {
+            $response->header('Retry-After', $retryAfter);
+        }
+
+        return $response;
+    }
+
     public static function badRequest(string $message = 'Bad Request', $errors = []): JsonResponse
     {
         return self::error($message, $errors, Response::HTTP_BAD_REQUEST);
