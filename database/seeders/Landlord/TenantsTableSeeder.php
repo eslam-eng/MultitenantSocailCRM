@@ -17,7 +17,6 @@ class TenantsTableSeeder extends Seeder
     public function run(): void
     {
         Tenant::factory()->create(['database'=>'barmagiat_tenant_database_1']);
-        Tenant::factory()->create(['database'=>'barmagiat_tenant_database_2']);
         // Get plans that have trial period
         $trialPlans = Plan::trial()->get();
 
