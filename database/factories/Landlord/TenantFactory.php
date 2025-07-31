@@ -26,6 +26,7 @@ class TenantFactory extends Factory
 
         return [
             'name' => $name,
+            'database'=>"barmagiat_tenant_database".fake()->numberBetween(1, 2),
             'slug' => Str::slug(fake()->words(2, true), '_'), // e.g., "fresh_tomato"
         ];
     }
