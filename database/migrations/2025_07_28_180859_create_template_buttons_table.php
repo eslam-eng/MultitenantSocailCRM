@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Template::class)->constrained()->cascadeOnDelete();
             $table->string('button_text');
             $table->enum('button_type', ['url', 'phone', 'whatsapp', 'email'])->default('url');
-            $table->string('action_value'); // URL, phone, WhatsApp number, email
+            $table->text('action_value'); // URL, phone, WhatsApp number, email
             $table->string('background_color')->nullable();
             $table->string('text_color')->nullable();
             $table->integer('sort_order')->default(1);

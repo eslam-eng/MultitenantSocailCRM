@@ -3,15 +3,18 @@
 namespace App\Services\Tenant\Actions\Template;
 
 use App\DTOs\Template\TemplateDTO;
-use App\Models\Template;
-use App\Models\TemplateButton;
-use App\Models\TemplateParameter;
+use App\Models\Tenant\Template;
+use App\Models\Tenant\TemplateButton;
+use App\Models\Tenant\TemplateVariable;
+use App\Services\UploadFileService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class CreateTemplateService
 {
+    public function __construct(private readonly UploadFileService $uploadFileService) {}
+
     private function getQuery(): Builder
     {
         return Template::query();
@@ -24,6 +27,10 @@ class CreateTemplateService
     {
         return DB::transaction(function () use ($templateDTO) {
             $template = $this->getQuery()->create($templateDTO->toArray());
+
+            if (! empty($templateDTO->media_id)) {
+                $this->uploadFileService->assignMediaToModel(media_id: $templateDTO->media_id, model: $template, collection_name: 'templates');
+            }
 
             $this->createTemplateButtons($template->id, $templateDTO->template_buttons);
             $this->createTemplateParameters($template->id, $templateDTO->template_parms);
@@ -47,7 +54,7 @@ class CreateTemplateService
                 'action_value' => Arr::get($button, 'action_value'),
                 'background_color' => Arr::get($button, 'background_color'),
                 'text_color' => Arr::get($button, 'text_color'),
-                'sort_order' => Arr::get($button, 'quick_replay'),
+                'sort_order' => Arr::get($button, 'sort_order', 1),
             ];
         }
 
@@ -65,12 +72,11 @@ class CreateTemplateService
             $templateParamsData[] = [
                 'template_id' => $templateId,
                 'variable_name' => Arr::get($param, 'variable_name'),
-                'default_value' => Arr::get($param, 'default_value'),
                 'is_required' => Arr::get($param, 'is_required'),
-                'integration_source' => Arr::get($param, 'integration_source'),
+                'source' => Arr::get($param, 'integration_source'),
             ];
         }
 
-        TemplateParameter::query()->insert($templateParamsData);
+        TemplateVariable::query()->insert($templateParamsData);
     }
 }

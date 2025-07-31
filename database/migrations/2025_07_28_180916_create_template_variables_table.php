@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('variable_name');
             $table->string('default_value')->nullable();
             $table->boolean('is_required')->default(false);
-            $table->string('integration_source')->nullable();
+            $table->string('source')->nullable();
             $table->timestamps();
         });
     }

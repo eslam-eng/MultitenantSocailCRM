@@ -9,9 +9,9 @@ class TemplateVariable extends BaseTenantModel
     protected $fillable = [
         'template_id',
         'variable_name',
-        'default_value',
+        //        'default_value',
         'is_required',
-        'integration_source',
+        'source',
     ];
 
     protected $casts = [

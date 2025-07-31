@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('category')->comment('reference to is for promotional,retention,....')->nullable();
             $table->string('template_type')->comment('sms,whatsapp,email'); // email, sms, whatsapp, push, etc.
             $table->longText('content');
+            $table->string('sender_number')->nullable();
             $table->text('header_type')->nullable();
             $table->text('header_content')->nullable();
             $table->text('footer_content')->nullable();

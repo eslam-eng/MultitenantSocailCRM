@@ -6,40 +6,32 @@ enum ButtonTypeEnum: string
 {
     case URL = 'url';
     case PHONE = 'phone';
-    case WHATSAPP = 'whatsapp';
+    //    case WHATSAPP = 'whatsapp';
     case EMAIL = 'email';
     case QUICK_REPLY = 'quick_reply';
+    case COPY_TEXT = 'copy_text';
 
     public function label(): string
     {
         return match ($this) {
             self::URL => 'Website Link',
             self::PHONE => 'Phone Number',
-            self::WHATSAPP => 'WhatsApp',
+            //            self::WHATSAPP => 'WhatsApp',
             self::EMAIL => 'Email',
             self::QUICK_REPLY => 'Quick Reply',
-        };
-    }
-
-    public function icon(): string
-    {
-        return match ($this) {
-            self::URL => 'link',
-            self::PHONE => 'phone',
-            self::WHATSAPP => 'message-circle',
-            self::EMAIL => 'mail',
-            self::QUICK_REPLY => 'zap',
+            self::COPY_TEXT => 'Copy',
         };
     }
 
     public function formatAction(string $actionValue): string
     {
         return match ($this) {
-            self::WHATSAPP => 'https://wa.me/'.preg_replace('/[^0-9]/', '', $actionValue),
+            //            self::WHATSAPP => 'https://wa.me/'.preg_replace('/[^0-9]/', '', $actionValue),
             self::PHONE => 'tel:'.$actionValue,
             self::EMAIL => 'mailto:'.$actionValue,
             self::URL => $actionValue,
             self::QUICK_REPLY => $actionValue,
+            self::COPY_TEXT => $actionValue,
         };
     }
 
@@ -48,9 +40,10 @@ enum ButtonTypeEnum: string
         return match ($this) {
             self::URL => ['required', 'url'],
             self::PHONE => ['required', 'regex:/^[\+]?[0-9\s\-\(\)]+$/'],
-            self::WHATSAPP => ['required', 'regex:/^[\+]?[0-9]+$/'],
+            //            self::WHATSAPP => ['required', 'regex:/^[\+]?[0-9]+$/'],
             self::EMAIL => ['required', 'email'],
             self::QUICK_REPLY => ['required', 'string', 'max:20'],
+            self::COPY_TEXT => ['required', 'string', 'max:20'],
         };
     }
 
@@ -59,7 +52,7 @@ enum ButtonTypeEnum: string
         return match ($this) {
             self::URL => 'https://example.com',
             self::PHONE => '+1234567890',
-            self::WHATSAPP => '+1234567890',
+            //            self::WHATSAPP => '+1234567890',
             self::EMAIL => 'contact@example.com',
             self::QUICK_REPLY => 'Yes/No/Maybe',
         };
@@ -71,7 +64,6 @@ enum ButtonTypeEnum: string
             ->map(fn ($case) => [
                 'value' => $case->value,
                 'label' => $case->label(),
-                'icon' => $case->icon(),
                 'placeholder' => $case->getPlaceholder(),
             ])
             ->toArray();

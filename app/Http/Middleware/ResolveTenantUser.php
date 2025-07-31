@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\ApiResponse;
 use App\Models\Landlord\Tenant;
 use App\Models\Tenant\User;
 use Closure;
@@ -18,9 +19,11 @@ class ResolveTenantUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Only proceed if a tenant is set and a user is authenticated
+        // Only proceed if a tenant is set and a user is authenticated && auth user is instance for Landlord user
+
         if (Tenant::current() && auth()->check()) {
             $landlordUser = auth()->user(); // Landlord user
+
             $tenant = Tenant::current();
 
             // Switch to tenant database (handled by SwitchTenantDatabaseTask)
@@ -33,7 +36,7 @@ class ResolveTenantUser
                 // Set tenant user as the authenticated user
                 Auth::setUser($tenantUser);
             } else {
-                return response()->json(['error' => 'Tenant user not found'], 403);
+                return ApiResponse::unauthorized(message: 'Tenant user not authorized to access ');
             }
         }
 

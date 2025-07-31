@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Tenant;
 
 use App\DTOs\SegmentDTO;
 use App\Models\Campaign;
 use App\Models\Segment;
+use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;

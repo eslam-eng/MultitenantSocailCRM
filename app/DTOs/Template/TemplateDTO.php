@@ -2,7 +2,7 @@
 
 namespace App\DTOs\Template;
 
-use App\DTOS\Abstract\BaseDTO;
+use App\DTOs\Abstract\BaseDTO;
 use App\Enum\ActivationStatusEnum;
 use App\Enum\ButtonTypeEnum;
 use Illuminate\Http\Request;
@@ -15,14 +15,16 @@ class TemplateDTO extends BaseDTO
     public function __construct(
         public string $name,
         public string $category,
-        public string $template_type,// whats,template
+        public string $template_type,// whatsapp,template
         public string $body,
+        public ?string $sender_number = null,
         public ?string $header_type = null,
         public ?string $header_content = null,
         public ?string $footer_content = null,
         public ?string $description = null,
         public ?array $template_buttons = [],
         public ?array $template_parms = null,
+        public ?string $media_id = null,
         public bool $is_active = ActivationStatusEnum::ACTIVE->value,
     ) {}
 
@@ -30,14 +32,16 @@ class TemplateDTO extends BaseDTO
     {
         return new self(
             name: $request->name,
-            category: $request->template_category,
-            template_type: $request->template_channel,
+            category: $request->category,
+            template_type: $request->template_type,
             body: $request->body,
+            sender_number: $request->sender_number,
             header_type: $request->header_type,
             header_content: $request->header_content,
             footer_content: $request->footer_content,
             template_buttons: $request->template_buttons ?? [],
             template_parms: $request->template_parms,
+            media_id: $request->media_id,
             is_active: $request->is_active ?? ActivationStatusEnum::ACTIVE->value,
         );
     }
@@ -49,11 +53,13 @@ class TemplateDTO extends BaseDTO
             category: Arr::get($data, 'category'),
             template_type: Arr::get($data, 'template_type'),
             body: Arr::get($data, 'body'),
+            sender_number: Arr::get($data, 'sender_number'),
             header_type: Arr::get($data, 'header_type'),
             header_content: Arr::get($data, 'header_content'),
             footer_content: Arr::get($data, 'footer_content'),
             template_buttons: Arr::get($data, 'template_buttons', []),
             template_parms: Arr::get($data, 'template_parms'),
+            media_id: Arr::get($data, 'media_id'),
             is_active: Arr::get($data, 'is_active', ActivationStatusEnum::ACTIVE->value),
         );
     }
@@ -65,6 +71,7 @@ class TemplateDTO extends BaseDTO
             'category' => $this->category,
             'template_type' => $this->template_type,
             'content' => $this->body,
+            'sender_number' => $this->sender_number,
             'header_content' => $this->header_content,
             'footer_content' => $this->footer_content,
             'is_active' => $this->is_active,
@@ -89,9 +96,8 @@ class TemplateDTO extends BaseDTO
                 'button_type' => Arr::get($button, 'button_type'),
                 'button_text' => Arr::get($button, 'button_text'),
                 'action_value' => Arr::get($button, 'action_value'),
-                'background_color' => Arr::get($button, 'background_color'),
-                'text_color' => Arr::get($button, 'text_color'),
-                'quick_replay' => Arr::get($button, 'quick_replay'),
+                //                'background_color' => Arr::get($button, 'background_color'),
+                //                'text_color' => Arr::get($button, 'text_color'),
                 'sort_order' => $buttonIndex,
             ];
 
@@ -207,9 +213,9 @@ class TemplateDTO extends BaseDTO
                 ? __('template.validation.action_value_invalid_phone', ['position' => $buttonIndex])
                 : null,
 
-            ButtonTypeEnum::WHATSAPP => ! preg_match('/^[\+]?[0-9]+$/', $actionValue)
-                ? __('template.validation.action_value_invalid_whatsapp', ['position' => $buttonIndex])
-                : null,
+            //            ButtonTypeEnum::WHATSAPP => ! preg_match('/^[\+]?[0-9]+$/', $actionValue)
+            //                ? __('template.validation.action_value_invalid_whatsapp', ['position' => $buttonIndex])
+            //                : null,
 
             ButtonTypeEnum::QUICK_REPLY => strlen($actionValue) > 20
                 ? __('template.validation.action_value_quick_reply_max', ['position' => $buttonIndex, 'max' => 20])
@@ -228,24 +234,6 @@ class TemplateDTO extends BaseDTO
     }
 
     /**
-     * Get validated template buttons for database insertion
-     */
-    public function getTemplateButtonsForDB(): array
-    {
-        return array_map(function ($button) {
-            return [
-                'button_type' => $button['button_type'],
-                'button_text' => $button['button_text'],
-                'action_value' => $button['action_value'],
-                'background_color' => $button['background_color'],
-                'text_color' => $button['text_color'],
-                'quick_replay' => $button['quick_replay'],
-                'sort_order' => $button['sort_order'],
-            ];
-        }, $this->template_buttons);
-    }
-
-    /**
      * Check if template has buttons
      */
     public function hasButtons(): bool
@@ -253,29 +241,6 @@ class TemplateDTO extends BaseDTO
         return ! empty($this->template_buttons);
     }
 
-    /**
-     * Get buttons count
-     */
-    public function getButtonsCount(): int
-    {
-        return count($this->template_buttons);
-    }
-
-    /**
-     * Get buttons by type
-     */
-    public function getButtonsByType(string $buttonType): array
-    {
-        return array_filter($this->template_buttons, function ($button) use ($buttonType) {
-            return $button['button_type'] === $buttonType;
-        });
-    }
-
-    /**
-     * Validate template buttons data (public method for external use)
-     *
-     * @throws ValidationException
-     */
     public function validateTemplateButtonData(?array $template_buttons): void
     {
         if (empty($template_buttons)) {

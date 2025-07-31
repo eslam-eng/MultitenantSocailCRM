@@ -6,10 +6,10 @@ use App\Enum\ActivationStatusEnum;
 use App\Enum\ButtonTypeEnum;
 use App\Enum\CampaignTypeEnum;
 use App\Enum\TemplateTypeEnum;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
-class TemplateRequest extends FormRequest
+class TemplateRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,11 +31,12 @@ class TemplateRequest extends FormRequest
             'description' => 'nullable|string|max:255',
             'category' => ['required', Rule::in(CampaignTypeEnum::values())],
             'template_type' => ['required', Rule::in(TemplateTypeEnum::values())],
-            'content' => 'required|string',
+            'body' => 'required|string',
+            'sender_number' => 'nullable|string|max:20',
             'header_content' => 'nullable|string|max:255',
             'footer_content' => 'nullable|string|max:255',
             'is_active' => 'required|boolean',
-            'media_id' => 'nullable',
+            'media_id' => 'nullable|integer',
             // validate buttons
             'template_buttons' => 'nullable|array|min:1',
             'template_buttons.*.button_text' => 'required|string|max:255',
@@ -44,6 +45,7 @@ class TemplateRequest extends FormRequest
             // validate parms
             'template_parms' => 'nullable|array|min:1',
             'template_parms.*.parm_name' => 'required|string|max:255',
+
         ];
     }
 
@@ -84,17 +86,17 @@ class TemplateRequest extends FormRequest
             'template_buttons.array' => __('template.validation.template_buttons_array'),
             'template_buttons.min' => __('template.validation.template_buttons_min'),
 
-            'template_buttons.*.button_text.required' => __('template.validation.template_buttons_button_text_required'),
-            'template_buttons.*.button_text.string' => __('template.validation.template_buttons_button_text_string'),
-            'template_buttons.*.button_text.max' => __('template.validation.template_buttons_button_text_max'),
+            'template_buttons.*.button_text.required' => __('validation.custom.template.button_text_required'),
+            'template_buttons.*.button_text.string' => __('template.validation.button_text_string'),
+            'template_buttons.*.button_text.max' => __('template.validation.button_text_max'),
 
-            'template_buttons.*.button_type.required' => __('template.validation.template_buttons_button_type_required'),
-            'template_buttons.*.button_type.in' => __('template.validation.template_buttons_button_type_in', [
+            'template_buttons.*.button_type.required' => __('template.validation.button_type_required'),
+            'template_buttons.*.button_type.in' => __('template.validation.button_type_in', [
                 'values' => implode(', ', ButtonTypeEnum::values()),
             ]),
 
-            'template_buttons.*.action_value.required' => __('template.validation.template_buttons_action_value_required'),
-            'template_buttons.*.action_value.string' => __('template.validation.template_buttons_action_value_string'),
+            'template_buttons.*.action_value.required' => __('template.validation.action_value_required'),
+            'template_buttons.*.action_value.string' => __('template.validation.action_value_string'),
 
             // Template parameters validation - Laravel will automatically replace :position
             'template_parms.array' => __('template.validation.template_parms_array'),

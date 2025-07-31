@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function updateLocale(ChangeLocalRequest $request)
     {
-        $user = auth()->guard('admin')->user();
+        $user = auth()->user();
         $user->locale = $request->input('locale');
         $user->save();
 
