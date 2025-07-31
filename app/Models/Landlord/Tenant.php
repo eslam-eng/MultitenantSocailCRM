@@ -42,9 +42,10 @@ class Tenant extends \Spatie\Multitenancy\Models\Tenant
             static::createDatabase($tenant->database);
             $tenant->makeCurrent();
             // Run migrations for the tenant
-            Artisan::call('migrate', [
+            Artisan::call('migrate:fresh', [
                 '--database' => 'tenant',
                 '--force' => true,
+                '--seed' => true,
             ]);
         });
 

@@ -34,7 +34,7 @@ class PlanFactory extends Factory
             'is_active' => fake()->randomElement(ActivationStatusEnum::values()),
             'trial_days' => 14,  // Common trial period of 14 days
             'sort_order' => fake()->numberBetween(1, 100),
-            'currency' => 'USD',  // Default currency
+            'currency_code' => 'USD',  // Default currency
             'refund_days' => fake()->numberBetween(0, 30),  // Common refund period up to 30 days
         ];
     }
