@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Landlord;
 
 use App\Enum\AvailableSocialProvidersEnum;
+use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
 class SocialAuthRequest extends BaseFormRequest

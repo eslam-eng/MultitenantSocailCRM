@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Landlord\Auth;
 use App\Enum\VerificationCodeType;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SendVerificationCodeRequest;
+use App\Http\Requests\Landlord\SendVerificationCodeRequest;
 use App\Services\Landlord\Actions\Auth\VerificationCodeService;
 use App\Services\Landlord\UserService;
 

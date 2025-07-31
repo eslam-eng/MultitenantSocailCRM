@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\Landlord;
 use App\DTOs\PlanDTO;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PlanRequest;
-use App\Http\Resources\Api\SuperAdmin\PlanResource;
+use App\Http\Requests\Landlord\PlanRequest;
+use App\Http\Resources\landlord\PlanResource;
 use App\Services\Landlord\Plan\PlanService;
 use Illuminate\Http\Request;
 

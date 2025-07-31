@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Landlord;
 
-use Illuminate\Validation\Rules\Password;
+use App\Enum\VerificationCodeType;
+use App\Http\Requests\BaseFormRequest;
+use Illuminate\Validation\Rule;
 
-class RestPasswordRequest extends BaseFormRequest
+class SendVerificationCodeRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +24,8 @@ class RestPasswordRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users,email',
-            'code' => 'required|string',
-            'password' => ['required', 'string', 'confirmed', Password::min(8)->mixedCase()],
+            'email' => 'required|email',
+            'type' => ['required', Rule::in(VerificationCodeType::values())],
         ];
     }
 }

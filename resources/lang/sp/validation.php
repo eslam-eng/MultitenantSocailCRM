@@ -37,6 +37,10 @@ return [
             'required' => 'La contraseña es obligatoria.',
             'confirmed' => 'La confirmación de la contraseña no coincide.',
         ],
+        'locale' => [
+            'in' => 'La langue sélectionnée n\'est pas valide.',
+            'required' => 'Le champ langue est obligatoire.',
+        ],
         'template' => [
             // Basic template fields
             'name_required' => 'El nombre de la plantilla es requerido',

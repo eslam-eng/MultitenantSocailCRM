@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Landlord;
 
 use App\Enum\ActivationStatusEnum;
+use App\Http\Requests\BaseFormRequest;
 use App\Rules\ValidCurrencyCode;
 use Illuminate\Validation\Rule;
 

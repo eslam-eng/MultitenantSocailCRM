@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Feature;
+namespace App\Http\Requests\Landlord\Feature;
 
+use App\Enum\SupportedLocalesEnum;
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -39,7 +40,7 @@ class BaseFeatureRequest extends BaseFormRequest
             'group.in' => __('validation.group_invalid'),
         ];
 
-        $supportedLocales = config('app.supported_locales', ['en', 'ar']);
+        $supportedLocales = SupportedLocalesEnum::values();
 
         foreach ($supportedLocales as $locale) {
             $messages["name.{$locale}.required"] = __('validation.name_locale_required', ['locale' => strtoupper($locale)]);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Landlord;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\SuperAdmin\TenantResource;
+use App\Http\Resources\landlord\TenantResource;
 use App\Services\Landlord\Tenant\TenantService;
 use Illuminate\Http\Request;
 
@@ -15,6 +15,7 @@ class TenantController extends Controller
     public function index(Request $request)
     {
         $tenants = $this->tenantService->paginate(filters: $request->all());
+        dd($tenants);
 
         return TenantResource::collection($tenants);
     }

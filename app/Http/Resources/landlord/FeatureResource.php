@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Api\SuperAdmin;
+namespace App\Http\Resources\landlord;
 
 use App\Enum\ActivationStatusEnum;
 use App\Enum\FeatureGroupEnum;

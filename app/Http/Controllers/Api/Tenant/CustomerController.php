@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\Tenant;
 use App\DTOs\CustomerDTO;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CustomerRequest;
-use App\Http\Resources\Api\CustomerResource;
+use App\Http\Requests\Tenant\CustomerRequest;
+use App\Http\Resources\tenant\CustomerResource;
 use App\Services\Tenant\CustomerService;
 use Illuminate\Http\Request;
 

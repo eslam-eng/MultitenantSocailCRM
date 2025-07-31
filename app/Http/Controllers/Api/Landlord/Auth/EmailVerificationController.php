@@ -7,7 +7,7 @@ use App\Exceptions\VerificationCode\CodeNotFoundException;
 use App\Exceptions\VerificationCode\MaxAttemptsExceededException;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VerifyEmailRequest;
+use App\Http\Requests\Landlord\VerifyEmailRequest;
 use App\Services\Landlord\Actions\Auth\VerificationCodeService;
 use App\Services\Tenant\UserService;
 

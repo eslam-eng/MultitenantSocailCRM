@@ -1,30 +1,35 @@
 <?php
 
-namespace App\Http\Requests\Feature;
+namespace App\Http\Requests\Landlord\Feature;
 
 use App\Enum\FeatureGroupEnum;
+use App\Enum\SupportedLocalesEnum;
 use Illuminate\Validation\Rule;
 
-class UpdateFeatureRequest extends BaseFeatureRequest
+class StoreFeatureRequest extends BaseFeatureRequest
 {
-    public function rules(): array
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules()
     {
+
         $rules = [
             'name' => 'required|array|min:1',
             'description' => 'nullable|array|min:1',
             'is_active' => 'required|boolean',
             'slug' => [
                 'required',
-                Rule::unique('features', 'slug')
-                    ->whereNull('deleted_at')
-                    ->ignore($this->feature),
+                Rule::unique('features', 'slug')->whereNull('deleted_at'),
                 'string',
             ],
             'group' => ['required', Rule::in(FeatureGroupEnum::values())],
         ];
 
         // Get supported locales from the middleware or config
-        $supportedLocales = config('app.supported_locales', ['en', 'ar']);
+        $supportedLocales = SupportedLocalesEnum::values();
 
         // Add validation rules for each supported locale
         foreach ($supportedLocales as $locale) {

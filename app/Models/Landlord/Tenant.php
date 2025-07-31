@@ -2,6 +2,7 @@
 
 namespace App\Models\Landlord;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +25,15 @@ class Tenant extends \Spatie\Multitenancy\Models\Tenant
 
     }
 
+    // Get owner user directly through pivot
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id')
+            ->join('tenant_users', 'users.id', '=', 'tenant_users.user_id')
+            ->where('tenant_users.tenant_id', $this->id)
+            ->where('tenant_users.is_owner', true);
+    }
+
     protected static function boot(): void
     {
         parent::boot();
@@ -38,7 +48,7 @@ class Tenant extends \Spatie\Multitenancy\Models\Tenant
         });
 
         static::created(function ($tenant) {
-            if (app()->environment('local')){
+            if (app()->environment('local')) {
                 // Create the tenant database
                 static::createDatabase($tenant->database);
                 $tenant->makeCurrent();

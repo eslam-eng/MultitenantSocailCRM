@@ -8,7 +8,7 @@ use App\Exceptions\VerificationCode\CodeNotFoundException;
 use App\Exceptions\VerificationCode\MaxAttemptsExceededException;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RestPasswordRequest;
+use App\Http\Requests\Landlord\RestPasswordRequest;
 use App\Services\Landlord\Actions\Auth\ForgetPasswordService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

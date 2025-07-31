@@ -1,7 +1,9 @@
 <?php
 
 use App\Helpers\ApiResponse;
+use App\Http\Controllers\Api\CountryCodeController;
 use App\Http\Controllers\Api\Landlord\AdminAuthController;
+use App\Http\Controllers\Api\Landlord\AdminController;
 use App\Http\Controllers\Api\Landlord\Auth\AuthController;
 use App\Http\Controllers\Api\Landlord\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\Landlord\Auth\GoogleAuthController;
@@ -10,7 +12,11 @@ use App\Http\Controllers\Api\Landlord\Auth\SendVerificationCodeController;
 use App\Http\Controllers\Api\Landlord\FeatureController;
 use App\Http\Controllers\Api\Landlord\PlanController;
 use App\Http\Controllers\Api\Landlord\TenantController;
+use App\Http\Controllers\Api\LocaleController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('locales', LocaleController::class);
+Route::get('country-code', CountryCodeController::class);
 
 Route::group(['middleware' => 'guest', 'prefix' => 'auth'], function () {
 
@@ -36,6 +42,8 @@ Route::group(['middleware' => 'auth:landlord'], function () {
     Route::get('plans/statics', [PlanController::class, 'statics']);
     Route::apiResource('plans', PlanController::class);
     Route::apiResource('features', FeatureController::class)->only(['index']);
+    Route::get('profile', [AdminController::class, 'profile']);
+    Route::put('locale', [AdminController::class, 'updateLocale']);
 });
 // ✅ Handle unknown landlord routes
 Route::any('{any}', function () {

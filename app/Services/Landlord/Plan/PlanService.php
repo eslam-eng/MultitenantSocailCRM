@@ -3,6 +3,7 @@
 namespace App\Services\Landlord\Plan;
 
 use App\DTOs\PlanDTO;
+use App\Enum\SupportedLocalesEnum;
 use App\Models\Landlord\Filters\PlanFilters;
 use App\Models\Landlord\Plan;
 use App\Services\BaseService;
@@ -55,7 +56,7 @@ class PlanService extends BaseService
         return DB::connection('landlord')->transaction(function () use ($planDTO) {
             $planData = $planDTO->toArray();
             $planData['name'] = [];
-            foreach (config('app.supported_locales') as $locale) {
+            foreach (SupportedLocalesEnum::values() as $locale) {
                 $planData['name'][$locale] = $planDTO->name; // or provide translation per locale
             }
             $plan = $this->getQuery()->create($planData);
@@ -77,7 +78,7 @@ class PlanService extends BaseService
         return DB::connection('landlord')->transaction(function () use ($planDTO, $plan) {
             $planData = $planDTO->toArrayExcept(['features', 'limits']);
             $planData['name'] = [];
-            foreach (config('app.supported_locales') as $locale) {
+            foreach (SupportedLocalesEnum::values() as $locale) {
                 $planData['name'][$locale] = $planDTO->name; // or provide translation per locale
             }
             $plan->update($planData);

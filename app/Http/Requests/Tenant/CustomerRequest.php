@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Tenant;
 
 use App\Enum\CustomerSourceEnum;
 use App\Enum\CustomerStatusEnum;
+use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
 class CustomerRequest extends BaseFormRequest

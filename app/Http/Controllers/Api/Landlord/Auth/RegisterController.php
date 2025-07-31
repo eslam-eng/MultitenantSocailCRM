@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\Landlord\Auth;
 use App\DTOs\UserDTO;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Resources\Api\AuthUserResource;
+use App\Http\Requests\Landlord\RegisterRequest;
+use App\Http\Resources\tenant\AuthUserResource;
 use App\Services\Landlord\Actions\Auth\RegisterService;
 use App\Services\Landlord\Actions\Auth\VerificationCodeService;
 

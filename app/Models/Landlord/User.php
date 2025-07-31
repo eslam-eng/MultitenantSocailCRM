@@ -3,6 +3,7 @@
 namespace App\Models\Landlord;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enum\SupportedLocalesEnum;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -63,6 +64,7 @@ class User extends Authenticatable implements HasMedia
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'locale' => SupportedLocalesEnum::class,
         ];
     }
 

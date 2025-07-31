@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Landlord;
 
 use App\DTOs\AuthCredentialsDTO;
 use App\Helpers\ApiResponse;
-use App\Http\Requests\AuthFormRequest;
-use App\Http\Resources\Api\SuperAdmin\AuthUserResource;
+use App\Http\Requests\Landlord\AuthFormRequest;
+use App\Http\Resources\landlord\AuthUserResource;
 use App\Services\Landlord\Actions\Auth\AdminAuthService;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 

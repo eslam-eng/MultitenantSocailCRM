@@ -37,7 +37,10 @@ return [
             'required' => 'Password is required.',
             'confirmed' => 'Password confirmation does not match.',
         ],
-
+        'locale' => [
+            'in' => 'The selected locale not supported.',
+            'required' => 'The locale field is required.',
+        ],
         'template' => [
             // Basic template fields
             'name_required' => 'Template name is required',

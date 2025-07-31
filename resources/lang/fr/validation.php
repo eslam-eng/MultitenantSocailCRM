@@ -37,6 +37,10 @@ return [
             'required' => 'Le mot de passe est requis.',
             'confirmed' => 'La confirmation du mot de passe ne correspond pas.',
         ],
+        'locale' => [
+            'in' => 'La langue sélectionnée n\'est pas valide.',
+            'required' => 'Le champ langue est obligatoire.',
+        ],
         'template' => [
             // Basic template fields
             'name_required' => 'Le nom du modèle est requis',

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Tenant;
 
 use App\Enum\ActivationStatusEnum;
 use App\Enum\ButtonTypeEnum;

@@ -35,6 +35,10 @@ return [
             'required' => 'كلمة المرور مطلوبة.',
             'confirmed' => 'تأكيد كلمة المرور غير مطابق.',
         ],
+        'locale' => [
+            'in' => 'اللغة المختارة غير مدعومة.',
+            'required' => 'حقل اللغة مطلوب.',
+        ],
         'template' => [
             // Basic template fields
             'name_required' => 'اسم القالب مطلوب',

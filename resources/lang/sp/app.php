@@ -25,7 +25,7 @@ return [
     'feature' => 'Funciones',
     'active' => 'Activo',
     'inactive' => 'Inactivo',
-
+    'tenant_missing' => 'No pudimos encontrar tu cuenta. Por favor revisa el enlace que usaste o contacta al soporte.',
     'subscription' => [
         'pending' => 'Pendiente',
         'active' => 'Activo',

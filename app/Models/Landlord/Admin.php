@@ -3,6 +3,8 @@
 namespace App\Models\Landlord;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enum\ActivationStatusEnum;
+use App\Enum\SupportedLocalesEnum;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +17,7 @@ use Spatie\Multitenancy\Models\Concerns\UsesLandlordConnection;
 class Admin extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\Landlord\UserFactory> */
-    use Filterable, HasApiTokens, HasFactory, InteractsWithMedia, Notifiable,UsesLandlordConnection;
+    use Filterable, HasApiTokens, HasFactory, InteractsWithMedia, Notifiable, UsesLandlordConnection;
 
     /**
      * The attributes that are mass assignable.
@@ -53,6 +55,8 @@ class Admin extends Authenticatable implements HasMedia
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => ActivationStatusEnum::class,
+            'locale' => SupportedLocalesEnum::class,
         ];
     }
 }

@@ -37,7 +37,7 @@ class ApiResponse
             'success' => false,
             'message' => $message,
             'data' => $data,
-            'error_code' => 'TOO_MANY_REQUESTS'
+            'error_code' => 'TOO_MANY_REQUESTS',
         ], 429);
 
         // Add Retry-After header if provided

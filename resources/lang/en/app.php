@@ -22,7 +22,7 @@ return [
     'feature' => 'Features',
     'active' => 'Active',
     'inactive' => 'Inactive',
-
+    'tenant_missing' => 'We couldn’t find your account. Please check the link you used or contact support.',
     'subscription' => [
         'pending' => 'Pending',
         'active' => 'Active',

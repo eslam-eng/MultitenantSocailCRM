@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Landlord;
+
+use App\Http\Requests\BaseFormRequest;
 
 class VerifyEmailRequest extends BaseFormRequest
 {

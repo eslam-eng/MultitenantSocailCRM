@@ -29,7 +29,7 @@ class TenantService extends BaseService
     public function paginate(array $filters = []): LengthAwarePaginator
     {
         return $this->getQuery($filters)
-            ->with(['owner:id,name,tenant_id,email', 'subscription'])
+            ->with(['owner', 'subscription'])
             ->paginate();
     }
 
