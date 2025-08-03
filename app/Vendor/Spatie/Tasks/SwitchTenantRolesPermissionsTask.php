@@ -21,25 +21,17 @@ class SwitchTenantRolesPermissionsTask implements SwitchTenantTask
 
     public function makeCurrent(Tenant|IsTenant $tenant): void
     {
-        $this->clearPermissionCache();
         $this->setTenantPermissionConfig($tenant);
-        $this->refreshPermissionRegistrar();
+        $this->refreshPermissionSystem();
     }
 
     public function forgetCurrent(): void
     {
-        $this->clearPermissionCache();
         $this->resetPermissionConfig();
-        $this->refreshPermissionRegistrar();
+        $this->refreshPermissionSystem();
+
     }
 
-    /**
-     * Clear the permission cache
-     */
-    protected function clearPermissionCache(): void
-    {
-        app(PermissionRegistrar::class)->forgetCachedPermissions();
-    }
 
     /**
      * Set tenant-specific permission configuration
@@ -73,8 +65,14 @@ class SwitchTenantRolesPermissionsTask implements SwitchTenantTask
     /**
      * Refresh the permission registrar
      */
-    protected function refreshPermissionRegistrar(): void
+
+
+    protected function refreshPermissionSystem(): void
     {
+        // Forget the singleton instance (clears the internal cache)
         app()->forgetInstance(PermissionRegistrar::class);
+
+        // Clear Spatie’s cached permissions/roles
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
     }
 }

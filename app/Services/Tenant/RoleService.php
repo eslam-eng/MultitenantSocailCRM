@@ -6,6 +6,7 @@ use App\DTOs\RoleDTO;
 use App\Models\Tenant\Role;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -30,20 +31,22 @@ class RoleService extends BaseService
             ->paginate();
     }
 
-    public function roles(array $filters = [])
+    public function roles(array $filters = []): Collection
     {
         return $this->getQuery($filters)
             ->withCount('permissions')
             ->get();
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function create(RoleDTO $roleDTO): Builder|Model|Role
     {
-        return $role = $this->getQuery()->create($roleDTO->toArray());
-
         return DB::connection('tenant')->transaction(function () use ($roleDTO) {
-            $role = $this->getQuery()->create($roleDTO->toArray());
+            $role = $this->baseQuery()->create($roleDTO->toArray());
             $role->syncPermissions($roleDTO->permissions);
+            return $role;
         });
     }
 

@@ -26,7 +26,7 @@ class PlanController extends Controller
             'lifetime_only' => $request->query('lifetime_only'),
         ]);
 
-        $withRelations = ['limitFeatures', 'addonFeatures'];
+        $withRelations = ['limitFeatures'];
 
         $plans = $this->planService->paginate(filters: $filters, withRelation: $withRelations);
 

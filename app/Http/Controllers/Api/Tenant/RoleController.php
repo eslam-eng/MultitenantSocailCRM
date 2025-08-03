@@ -56,7 +56,7 @@ class RoleController extends Controller
         $roleDTO = RoleDTO::fromRequest($request);
         $this->roleService->update(role: $role, roleDTO: $roleDTO);
 
-        return ApiResponse::success(message: __('app.role_updated_successfully'));
+        return ApiResponse::success(message: __('app.role_updated_successfully ✅'));
     }
 
     /**
@@ -66,7 +66,7 @@ class RoleController extends Controller
     {
         $this->roleService->delete($id);
 
-        return ApiResponse::success(message: 'Customer deleted successfully');
+        return ApiResponse::success(message: 'Role deleted successfully ✅');
 
     }
 

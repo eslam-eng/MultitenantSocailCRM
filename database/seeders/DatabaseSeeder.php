@@ -10,6 +10,7 @@ use Database\Seeders\Landlord\PlansTableSeeder;
 use Database\Seeders\Landlord\TenantsTableSeeder;
 use Database\Seeders\Landlord\UsersTableSeeder;
 use Database\Seeders\Tenant\CustomersTableSeeder;
+use Database\Seeders\Tenant\PermissionsTableSeeder;
 use Illuminate\Database\Seeder;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
 
     public function runTenantSpecificSeeders(): void
     {
+        $this->call(PermissionsTableSeeder::class);
         $this->call(CustomersTableSeeder::class);
         $this->call(\Database\Seeders\Tenant\UsersTableSeeder::class);
     }

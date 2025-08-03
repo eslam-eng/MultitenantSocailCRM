@@ -2,6 +2,7 @@
 
 namespace App\Enum;
 
+
 enum PermissionsEnum: string
 {
     // Contact Permissions
@@ -35,9 +36,56 @@ enum PermissionsEnum: string
     case DELETE_ROLE = 'delete_role';
 
     /**
+     * Get the group name for the permission
+     */
+    public function getGroup(): string
+    {
+        return match($this) {
+            self::LIST_CONTACTS,
+            self::CREATE_CONTACT,
+            self::VIEW_CONTACT,
+            self::EDIT_CONTACT,
+            self::DELETE_CONTACT,
+            self::EXPORT_CONTACT,
+            self::IMPORT_CONTACT => 'contacts',
+
+            self::LIST_ORDERS,
+            self::CREATE_ORDER,
+            self::VIEW_ORDER,
+            self::EDIT_ORDER,
+            self::DELETE_ORDER => 'orders',
+
+            self::LIST_PRODUCTS,
+            self::CREATE_PRODUCT,
+            self::VIEW_PRODUCT,
+            self::EDIT_PRODUCT,
+            self::DELETE_PRODUCT => 'products',
+
+            self::LIST_ROLES,
+            self::CREATE_ROLE,
+            self::VIEW_ROLE,
+            self::EDIT_ROLE,
+            self::DELETE_ROLE => 'roles',
+        };
+    }
+
+    /**
+     * Get all permissions grouped by their group
+     */
+    public static function grouped(): array
+    {
+        $grouped = [];
+        foreach (self::cases() as $permission) {
+            $grouped[$permission->getGroup()][] = [
+                'name' => $permission->value,
+                'label' => $permission->getLabel(),
+            ];
+        }
+        return $grouped;
+    }
+
+    /**
      * Get the translated label for the permission
-     *
-     * @return string
      */
     public function getLabel(): string
     {
