@@ -33,7 +33,7 @@ class RoleDTO extends BaseDTO
         return new self(
             name: Arr::get($data, 'name'),
             permissions: Arr::get($data, 'permissions'),
-            is_active: Arr::get($data, 'is_active',ActivationStatusEnum::ACTIVE->value),
+            is_active: Arr::get($data, 'is_active', ActivationStatusEnum::ACTIVE->value),
         );
     }
 
@@ -45,5 +45,4 @@ class RoleDTO extends BaseDTO
             'is_active' => $this->is_active,
         ];
     }
-
 }

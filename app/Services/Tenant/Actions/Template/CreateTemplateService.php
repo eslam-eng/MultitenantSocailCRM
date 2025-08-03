@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class CreateTemplateService
 {
-    public function __construct(private readonly UploadFileService $uploadFileService)
-    {
-    }
+    public function __construct(private readonly UploadFileService $uploadFileService) {}
 
     private function getQuery(): Builder
     {
@@ -30,7 +28,7 @@ class CreateTemplateService
         return DB::connection('tenant')->transaction(function () use ($templateDTO) {
             $template = $this->getQuery()->create($templateDTO->toArray());
 
-            if (!empty($templateDTO->media_id)) {
+            if (! empty($templateDTO->media_id)) {
                 $this->uploadFileService->assignMediaToModel(media_id: $templateDTO->media_id, model: $template, collection_name: 'templates');
             }
 
@@ -74,7 +72,7 @@ class CreateTemplateService
             $templateParamsData[] = [
                 'template_id' => $templateId,
                 'variable_name' => Arr::get($param, 'parm_name'),
-                'is_required' => Arr::get($param, 'is_required',true),
+                'is_required' => Arr::get($param, 'is_required', true),
                 'source' => Arr::get($param, 'integration_source'),
             ];
         }

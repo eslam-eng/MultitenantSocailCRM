@@ -29,7 +29,7 @@ class RoleRequest extends BaseFormRequest
             'name' => ['required', 'string', 'max:255', Rule::unique('tenant.roles', 'name')->ignore($this->role)],
             'is_active' => 'required|boolean',
             'permissions' => 'required|array|min:1',
-            'permissions.*' => ['required',Rule::in(PermissionsEnum::values())],
+            'permissions.*' => ['required', Rule::in(PermissionsEnum::values())],
         ];
     }
 

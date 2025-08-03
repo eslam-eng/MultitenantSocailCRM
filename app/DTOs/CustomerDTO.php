@@ -12,7 +12,8 @@ use Illuminate\Support\Arr;
 class CustomerDTO extends BaseDTO
 {
     public function __construct(
-        public string $name,
+        public string $first_name,
+        public ?string $last_name = null,
         public ?string $country_code = null,
         public ?string $phone = null,
         public ?string $email = null,
@@ -29,7 +30,8 @@ class CustomerDTO extends BaseDTO
     public static function fromArray(array $data): static
     {
         return new self(
-            name: Arr::get($data, 'name'),
+            first_name: Arr::get($data, 'first_name'),
+            last_name: Arr::get($data, 'last_name'),
             country_code: Arr::get($data, 'country_code'),
             phone: Arr::get($data, 'phone'),
             email: Arr::get($data, 'email'),
@@ -46,7 +48,8 @@ class CustomerDTO extends BaseDTO
     public static function fromRequest(Request $request): static
     {
         return new self(
-            name: $request->name,
+            first_name: $request->first_name,
+            last_name: $request->last_name,
             country_code: $request->country_code,
             phone: $request->phone,
             email: $request->email,
@@ -64,7 +67,8 @@ class CustomerDTO extends BaseDTO
     public function toArray(): array
     {
         return [
-            'name' => $this->name,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
             'country_code' => $this->country_code,
             'phone' => $this->phone,
             'email' => $this->email,

@@ -23,7 +23,6 @@ class RoleService extends BaseService
         return Role::query();
     }
 
-
     public function paginate(array $filters = []): LengthAwarePaginator
     {
         return $this->getQuery($filters)
@@ -46,10 +45,10 @@ class RoleService extends BaseService
         return DB::connection('tenant')->transaction(function () use ($roleDTO) {
             $role = $this->baseQuery()->create($roleDTO->toArray());
             $role->syncPermissions($roleDTO->permissions);
+
             return $role;
         });
     }
-
 
     /**
      * @throws \Throwable
@@ -73,7 +72,6 @@ class RoleService extends BaseService
 
         return $role->delete();
     }
-
 
     public function getRoleBySlug(string $slug): Model|Builder|null
     {

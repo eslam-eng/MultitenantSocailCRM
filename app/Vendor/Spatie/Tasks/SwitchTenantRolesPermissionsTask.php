@@ -32,7 +32,6 @@ class SwitchTenantRolesPermissionsTask implements SwitchTenantTask
 
     }
 
-
     /**
      * Set tenant-specific permission configuration
      */
@@ -65,8 +64,6 @@ class SwitchTenantRolesPermissionsTask implements SwitchTenantTask
     /**
      * Refresh the permission registrar
      */
-
-
     protected function refreshPermissionSystem(): void
     {
         // Forget the singleton instance (clears the internal cache)

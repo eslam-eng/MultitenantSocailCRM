@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    public function __construct(protected readonly RoleService $roleService)
-    {
-    }
+    public function __construct(protected readonly RoleService $roleService) {}
 
     /**
      * Display a listing of the resource.
@@ -35,6 +33,7 @@ class RoleController extends Controller
     {
         $roleDTO = RoleDTO::fromRequest($request);
         $this->roleService->create($roleDTO);
+
         return ApiResponse::success(message: __('app.role_created_successfully'));
     }
 
@@ -45,6 +44,7 @@ class RoleController extends Controller
     {
         $withRelations = ['permissions'];
         $role = $this->roleService->findById(id: $id, withRelation: $withRelations);
+
         return ApiResponse::success(data: RoleResource::make($role));
     }
 

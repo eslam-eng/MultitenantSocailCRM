@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Tenant;
 
-use App\Enum\ActivationStatusEnum;
 use App\Enum\ButtonTypeEnum;
 use App\Enum\CampaignTypeEnum;
 use App\Enum\TemplateStatusEnum;

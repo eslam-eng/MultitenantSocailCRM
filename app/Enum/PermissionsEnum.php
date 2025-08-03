@@ -2,7 +2,6 @@
 
 namespace App\Enum;
 
-
 enum PermissionsEnum: string
 {
     // Contact Permissions
@@ -40,7 +39,7 @@ enum PermissionsEnum: string
      */
     public function getGroup(): string
     {
-        return match($this) {
+        return match ($this) {
             self::LIST_CONTACTS,
             self::CREATE_CONTACT,
             self::VIEW_CONTACT,
@@ -81,6 +80,7 @@ enum PermissionsEnum: string
                 'label' => $permission->getLabel(),
             ];
         }
+
         return $grouped;
     }
 
@@ -89,7 +89,7 @@ enum PermissionsEnum: string
      */
     public function getLabel(): string
     {
-        return __("permissions." . $this->value);
+        return __('permissions.'.$this->value);
     }
 
     public static function values(): array

@@ -8,7 +8,6 @@ use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\CustomerRequest;
 use App\Http\Requests\Tenant\TemplateRequest;
-use App\Http\Resources\tenant\CustomerResource;
 use App\Http\Resources\tenant\TemplateResource;
 use App\Services\Tenant\Actions\Template\CreateTemplateService;
 use App\Services\Tenant\TemplateService;
@@ -45,12 +44,7 @@ class TemplateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-
-    }
-
-
+    public function show(string $id) {}
 
     /**
      * Update the specified resource in storage.

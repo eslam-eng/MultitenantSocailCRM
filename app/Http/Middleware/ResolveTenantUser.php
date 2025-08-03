@@ -44,7 +44,7 @@ class ResolveTenantUser
 
     }
 
-    //public function handle(Request $request, Closure $next): Response
+    // public function handle(Request $request, Closure $next): Response
     //    {
     //        // Only proceed if a tenant is set and a user is authenticated
     //        if (Tenant::current() && auth()->check()) {

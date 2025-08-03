@@ -27,7 +27,8 @@ class CustomerRequest extends BaseFormRequest
         $countriesData = countriesData();
 
         return [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'nullable|string|max:255',
             'country_code' => ['required', 'string', Rule::in($countriesData->pluck('dial_code')->toArray())],
             'phone' => ['nullable', 'string', Rule::unique('tenant.customers', 'phone')->ignore($this->customer)],
             'email' => 'nullable|email',

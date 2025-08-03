@@ -3,13 +3,13 @@
 namespace App\Models\Tenant;
 
 use App\Enum\ActivationStatusEnum;
-use App\Patterns\States\Subscription\ActiveState;
 use App\Traits\Filterable;
 use Spatie\Multitenancy\Models\Concerns\UsesTenantConnection;
 
 class Role extends \Spatie\Permission\Models\Role
 {
-    use UsesTenantConnection, Filterable;
+    use Filterable, UsesTenantConnection;
+
     protected $fillable = ['name', 'guard_name', 'is_active'];
 
     protected $table = 'roles';

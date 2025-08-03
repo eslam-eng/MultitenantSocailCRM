@@ -19,7 +19,7 @@ Route::group(['middleware' => ['auth:sanctum', 'tenant', 'locale']], function ()
         Route::apiResource('templates', TemplateController::class);
 
         Route::post('upload', UploadFileController::class);
-        Route::get('permissions', [RoleController::class,'permissionsList']);
+        Route::get('permissions', [RoleController::class, 'permissionsList']);
         Route::apiResource('roles', RoleController::class);
 
     });

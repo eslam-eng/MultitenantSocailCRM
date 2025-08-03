@@ -15,7 +15,7 @@ class PermissionsTableSeeder extends Seeder
         foreach (PermissionsEnum::cases() as $permission) {
             Permission::query()->updateOrCreate([
                 'name' => $permission->value,
-                'group' => $permission->getGroup()
+                'group' => $permission->getGroup(),
             ]);
         }
     }

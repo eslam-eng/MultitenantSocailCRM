@@ -25,8 +25,8 @@ class Template extends BaseTenantModel implements HasMedia
     ];
 
     protected $casts = [
-        'status' =>TemplateStatusEnum::class,
-        'template_type' =>TemplateTypeEnum::class,
+        'status' => TemplateStatusEnum::class,
+        'template_type' => TemplateTypeEnum::class,
     ];
 
     public function buttons(): HasMany

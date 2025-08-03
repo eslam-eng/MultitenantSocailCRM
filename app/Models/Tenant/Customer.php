@@ -8,7 +8,7 @@ use App\Enum\CustomerStatusEnum;
 class Customer extends BaseTenantModel
 {
     protected $fillable = [
-        'name', 'country_code', 'phone', 'email', 'notes',
+        'first_name', 'last_name', 'country_code', 'phone', 'email', 'notes',
         'source', 'address', 'country', 'city', 'zipcode', 'status', 'tags',
     ];
 

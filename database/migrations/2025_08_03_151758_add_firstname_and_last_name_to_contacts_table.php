@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('roles', function (Blueprint $table) {
-            $table->boolean('is_active')->default(true);
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn('name');
+            $table->string('first_name');
+            $table->string('last_name')->nullable();
         });
     }
 
@@ -21,7 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('roles', function (Blueprint $table) {
+        Schema::table('contacts', function (Blueprint $table) {
             //
         });
     }
