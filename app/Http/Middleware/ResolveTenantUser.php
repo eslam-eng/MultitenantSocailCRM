@@ -41,5 +41,47 @@ class ResolveTenantUser
         }
 
         return $next($request);
+
     }
+
+    //public function handle(Request $request, Closure $next): Response
+    //    {
+    //        // Only proceed if a tenant is set and a user is authenticated
+    //        if (Tenant::current() && auth()->check()) {
+    //            $landlordUser = auth()->user();
+    //            $tenant = Tenant::current();
+    //
+    //            // Create cache key based on tenant and user
+    //            $cacheKey = "tenant_user:{$tenant->id}:{$landlordUser->id}";
+    //
+    //            // Try to get cached tenant user data
+    //            $cachedUserData = Cache::remember($cacheKey, now()->addMinutes(30), function () use ($tenant, $landlordUser) {
+    //                // Switch to tenant database
+    //                $tenant->makeCurrent();
+    //
+    //                // Find tenant-specific user by email
+    //                $tenantUser = User::where('email', $landlordUser->email)
+    //                    ->select(['id', 'email', 'name', 'created_at', 'updated_at']) // Only select needed fields
+    //                    ->first();
+    //
+    //                return $tenantUser ? $tenantUser->toArray() : null;
+    //            });
+    //
+    //            if ($cachedUserData) {
+    //                // Create User instance from cached data
+    //                $tenantUser = new User($cachedUserData);
+    //                $tenantUser->exists = true;
+    //                $tenantUser->id = $cachedUserData['id'];
+    //
+    //                // Set tenant user as the authenticated user
+    //                Auth::setUser($tenantUser);
+    //            } else {
+    //                // Clear cache for this user if not found
+    //                Cache::forget($cacheKey);
+    //                return ApiResponse::unauthorized(message: 'Tenant user not authorized to access');
+    //            }
+    //        }
+    //
+    //        return $next($request);
+    //    }
 }

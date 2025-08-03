@@ -18,7 +18,6 @@ class TemplateDTO extends BaseDTO
         public string $template_type,// whatsapp,template
         public string $body,
         public ?string $sender_number = null,
-        public ?string $header_type = null,
         public ?string $header_content = null,
         public ?string $footer_content = null,
         public ?string $description = null,
@@ -36,7 +35,6 @@ class TemplateDTO extends BaseDTO
             template_type: $request->template_type,
             body: $request->body,
             sender_number: $request->sender_number,
-            header_type: $request->header_type,
             header_content: $request->header_content,
             footer_content: $request->footer_content,
             template_buttons: $request->template_buttons ?? [],
@@ -54,7 +52,6 @@ class TemplateDTO extends BaseDTO
             template_type: Arr::get($data, 'template_type'),
             body: Arr::get($data, 'body'),
             sender_number: Arr::get($data, 'sender_number'),
-            header_type: Arr::get($data, 'header_type'),
             header_content: Arr::get($data, 'header_content'),
             footer_content: Arr::get($data, 'footer_content'),
             template_buttons: Arr::get($data, 'template_buttons', []),

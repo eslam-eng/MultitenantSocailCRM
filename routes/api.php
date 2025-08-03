@@ -2,6 +2,7 @@
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Api\Tenant\CustomerController;
+use App\Http\Controllers\Api\Tenant\RoleController;
 use App\Http\Controllers\Api\Tenant\TemplateController;
 use App\Http\Controllers\Api\Tenant\UserController;
 use App\Http\Controllers\UploadFileController;
@@ -18,6 +19,8 @@ Route::group(['middleware' => ['auth:sanctum', 'tenant', 'locale']], function ()
         Route::apiResource('templates', TemplateController::class);
 
         Route::post('upload', UploadFileController::class);
+        Route::get('permissions', [RoleController::class,'permissionsList']);
+        Route::apiResource('roles', RoleController::class);
 
     });
 

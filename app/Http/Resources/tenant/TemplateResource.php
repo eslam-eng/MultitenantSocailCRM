@@ -17,6 +17,13 @@ class TemplateResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'status' => $this->status->value,
+            'status_text' => $this->status->getLabel(),
+            'description' => $this->description,
+            'template_type' => $this->template_type->value,
+            'template_type_text' => $this->template_type->getLabel(),
+            'category' => $this->category,
+            'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i A') : null,
         ];
     }
 }

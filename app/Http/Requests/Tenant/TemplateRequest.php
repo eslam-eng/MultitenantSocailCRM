@@ -5,6 +5,7 @@ namespace App\Http\Requests\Tenant;
 use App\Enum\ActivationStatusEnum;
 use App\Enum\ButtonTypeEnum;
 use App\Enum\CampaignTypeEnum;
+use App\Enum\TemplateStatusEnum;
 use App\Enum\TemplateTypeEnum;
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
@@ -111,7 +112,7 @@ class TemplateRequest extends BaseFormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'is_active' => $this->get('is_active', ActivationStatusEnum::ACTIVE->value),
+            'status' => $this->template_type == TemplateTypeEnum::WHATSAPP->value ? TemplateStatusEnum::PENDING->value : TemplateStatusEnum::APPROVED->value,
         ]);
     }
 }

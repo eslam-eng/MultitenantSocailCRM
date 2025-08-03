@@ -38,7 +38,7 @@ class TemplateController extends Controller
         $templateDTO = TemplateDTO::fromRequest($request);
         $this->createTemplateService->handle($templateDTO);
 
-        return ApiResponse::success(message: __('app.customer_created_successfully'));
+        return ApiResponse::success(message: __('app.template_created_successfully'));
 
     }
 
@@ -47,17 +47,10 @@ class TemplateController extends Controller
      */
     public function show(string $id)
     {
-        $customer = $this->customerService->findById($id);
 
-        return ApiResponse::success(data: CustomerResource::make($customer));
     }
 
-    public function statics()
-    {
-        $statics = $this->customerService->statics();
 
-        return ApiResponse::success(data: $statics);
-    }
 
     /**
      * Update the specified resource in storage.
@@ -75,9 +68,8 @@ class TemplateController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->customerService->delete($id);
+        $this->templateService->delete($id);
 
-        return ApiResponse::success(message: 'Customer deleted successfully');
-
+        return ApiResponse::success(message: 'Template deleted successfully');
     }
 }

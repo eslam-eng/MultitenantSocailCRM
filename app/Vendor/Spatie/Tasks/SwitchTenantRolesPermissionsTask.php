@@ -56,14 +56,6 @@ class SwitchTenantRolesPermissionsTask implements SwitchTenantTask
             'permission.models.permission' => 'App\\Models\\Tenant\\Permission',
         ]);
 
-        // Set tenant-specific table names if needed
-        config([
-            'permission.table_names.roles' => 'roles',
-            'permission.table_names.permissions' => 'permissions',
-            'permission.table_names.model_has_permissions' => 'model_has_permissions',
-            'permission.table_names.model_has_roles' => 'model_has_roles',
-            'permission.table_names.role_has_permissions' => 'role_has_permissions',
-        ]);
     }
 
     /**
@@ -84,6 +76,5 @@ class SwitchTenantRolesPermissionsTask implements SwitchTenantTask
     protected function refreshPermissionRegistrar(): void
     {
         app()->forgetInstance(PermissionRegistrar::class);
-        app(PermissionRegistrar::class)->registerPermissions();
     }
 }

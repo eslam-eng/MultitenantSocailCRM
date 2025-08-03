@@ -7,7 +7,7 @@ enum TemplateTypeEnum: string
     case EMAIL = 'email';
     case WHATSAPP = 'whatsapp';
 
-    public function label(): string
+    public function getLabel(): string
     {
         return match ($this) {
             self::EMAIL => 'Email',
