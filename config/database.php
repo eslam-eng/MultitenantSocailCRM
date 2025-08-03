@@ -90,9 +90,9 @@ return [
             'database' => env('TENANT_DB_USERNAME', 'root'),
             'username' => env('TENANT_DB_USERNAME', 'root'),
             'password' => env('TENANT_DB_USERNAME', ''),
-//            'database' => null,
-//            'username' => env('DB_USERNAME', 'root'),
-//            'password' => env('DB_PASSWORD', ''),
+            //            'database' => null,
+            //            'username' => env('DB_USERNAME', 'root'),
+            //            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -190,7 +190,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug((string)env('APP_NAME', 'laravel')) . '-database-'),
+            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-database-'),
             'persistent' => env('REDIS_PERSISTENT', false),
         ],
 

@@ -8,7 +8,7 @@ use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\CustomerRequest;
 use App\Http\Requests\Tenant\TemplateRequest;
-use App\Http\Resources\tenant\TemplateResource;
+use App\Http\Resources\Tenant\TemplateResource;
 use App\Services\Tenant\Actions\Template\CreateTemplateService;
 use App\Services\Tenant\TemplateService;
 use Illuminate\Http\Request;

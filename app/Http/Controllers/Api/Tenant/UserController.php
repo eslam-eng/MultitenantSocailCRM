@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Tenant;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeLocalRequest;
-use App\Http\Resources\tenant\AuthUserResource;
+use App\Http\Resources\Tenant\AuthUserResource;
 
 class UserController extends Controller
 {

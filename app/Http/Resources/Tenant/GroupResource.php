@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\tenant\Role;
+namespace App\Http\Resources\Tenant;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PermissionResource extends JsonResource
+class GroupResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,11 @@ class PermissionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->id,
-            'value' => $this->name,
+            'name' => $this->name,
+            'description' => $this->description,
+            'is_active' => $this->is_active->value,
+            'is_active_text' => $this->is_active->getLabel(),
+            'color' => $this->color,
         ];
     }
 }

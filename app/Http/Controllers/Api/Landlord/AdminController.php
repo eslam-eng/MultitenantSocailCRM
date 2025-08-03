@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Landlord;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeLocalRequest;
-use App\Http\Resources\landlord\AuthUserResource;
+use App\Http\Resources\Landlord\AuthUserResource;
 
 class AdminController extends Controller
 {

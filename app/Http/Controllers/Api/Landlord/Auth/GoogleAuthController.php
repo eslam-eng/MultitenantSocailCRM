@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Landlord\Auth;
 use App\Enum\AvailableSocialProvidersEnum;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\tenant\AuthUserResource;
+use App\Http\Resources\Tenant\AuthUserResource;
 use App\Services\Landlord\Actions\Auth\SocialAuthService;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;

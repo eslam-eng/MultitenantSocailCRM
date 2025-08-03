@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Landlord;
 
 use App\Enum\FeatureGroupEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\landlord\FeatureResource;
+use App\Http\Resources\Landlord\FeatureResource;
 use App\Services\Landlord\FeatureService;
 use Illuminate\Http\Request;
 

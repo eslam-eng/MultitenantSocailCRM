@@ -7,7 +7,7 @@ use App\Enum\PermissionsEnum;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\RoleRequest;
-use App\Http\Resources\tenant\Role\RoleResource;
+use App\Http\Resources\Tenant\Role\RoleResource;
 use App\Services\Tenant\RoleService;
 use Illuminate\Http\Request;
 
