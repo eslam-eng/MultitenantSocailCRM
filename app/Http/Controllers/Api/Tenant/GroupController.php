@@ -12,17 +12,19 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    public function __construct(protected readonly GroupService $groupService) {}
+    public function __construct(protected readonly GroupService $groupService)
+    {
+    }
 
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
+        $filters = $request->all();
+        $groups = $this->groupService->groups(filters: $filters);
 
-        $groups = $this->groupService->groups();
-
-        return GroupResource::collection($groups);
+        return ApiResponse::success(data: GroupResource::collection($groups));
     }
 
     /**

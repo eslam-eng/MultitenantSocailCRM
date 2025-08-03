@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Tenant\Role;
 
+use App\Enum\PermissionsEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +17,7 @@ class PermissionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->id,
+            'name' => PermissionsEnum::from($this->name)->getLabel(),
             'value' => $this->name,
         ];
     }

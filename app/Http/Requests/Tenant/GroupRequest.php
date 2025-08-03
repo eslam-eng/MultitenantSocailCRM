@@ -25,13 +25,14 @@ class GroupRequest extends BaseFormRequest
     {
 
         return [
-            'name' => ['required', 'string', 'max:255', Rule::unique('tenant.groups', 'name')->ignore($this->role)],
+            'name' => ['required', 'string', 'max:255', Rule::unique('tenant.groups', 'name')->ignore($this->group)],
             'is_active' => 'required|boolean',
             'description' => 'nullable|string|max:190',
+            'color' => 'nullable|string|hex_color',
         ];
     }
 
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
             'is_active' => $this->get('status', ActivationStatusEnum::ACTIVE->value),
