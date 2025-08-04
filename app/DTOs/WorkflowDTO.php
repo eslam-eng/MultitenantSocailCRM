@@ -6,7 +6,7 @@ use App\DTOs\Abstract\BaseDTO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-class PipelineDTO extends BaseDTO
+class WorkflowDTO extends BaseDTO
 {
     public function __construct(
         public string $name,

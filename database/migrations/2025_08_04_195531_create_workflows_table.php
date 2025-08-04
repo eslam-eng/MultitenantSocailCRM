@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pipelines', function (Blueprint $table) {
+        Schema::dropIfExists('pipelines');
+        Schema::create('workflows', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pipelines');
+        Schema::dropIfExists('workflows');
     }
 };

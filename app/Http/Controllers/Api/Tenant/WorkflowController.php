@@ -2,44 +2,44 @@
 
 namespace App\Http\Controllers\Api\Tenant;
 
-use App\DTOs\PipelineDTO;
+use App\DTOs\WorkflowDTO;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\MovePipelineRequest;
-use App\Http\Requests\Tenant\PipelineRequest;
-use App\Http\Resources\Tenant\PipelineResource;
-use App\Services\Tenant\PipelineService;
+use App\Http\Requests\Tenant\WorkflowRequest;
+use App\Http\Resources\Tenant\WorkflowResource;
+use App\Services\Tenant\WorkflowService;
 use Illuminate\Http\Request;
 
-class PipelineController extends Controller
+class WorkflowController extends Controller
 {
-    public function __construct(protected PipelineService $pipelineService) {}
+    public function __construct(protected WorkflowService $pipelineService) {}
 
     public function index(Request $request)
     {
         $filters = $request->all();
 
-        return PipelineResource::collection($this->pipelineService->getPipelines($filters));
+        return WorkflowResource::collection($this->pipelineService->getPipelines($filters));
     }
 
     public function show($id)
     {
         $pipeline = $this->pipelineService->findById($id);
 
-        return ApiResponse::success(data: PipelineResource::make($pipeline));
+        return ApiResponse::success(data: WorkflowResource::make($pipeline));
     }
 
-    public function store(PipelineRequest $request)
+    public function store(WorkflowRequest $request)
     {
-        $dto = PipelineDTO::fromRequest($request);
+        $dto = WorkflowDTO::fromRequest($request);
         $this->pipelineService->create($dto);
 
         return ApiResponse::success(message: 'Pipeline created successfully.');
     }
 
-    public function update(PipelineRequest $request, $pipeline)
+    public function update(WorkflowRequest $request, $pipeline)
     {
-        $dto = PipelineDTO::fromRequest($request);
+        $dto = WorkflowDTO::fromRequest($request);
         $this->pipelineService->update(pipeline: $pipeline, dto: $dto);
 
         return ApiResponse::success(message: 'Pipeline updated successfully.');

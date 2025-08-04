@@ -2,14 +2,14 @@
 
 namespace App\Services\Tenant;
 
-use App\DTOs\PipelineDTO;
-use App\Models\Tenant\Pipeline;
+use App\DTOs\WorkflowDTO;
+use App\Models\Tenant\Workflow;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
-class PipelineService extends BaseService
+class WorkflowService extends BaseService
 {
     protected function getFilterClass(): ?string
     {
@@ -18,15 +18,15 @@ class PipelineService extends BaseService
 
     protected function baseQuery(): Builder
     {
-        return Pipeline::query();
+        return Workflow::query();
     }
 
-    public function create(PipelineDTO $dto): Pipeline
+    public function create(WorkflowDTO $dto): Workflow
     {
         return $this->baseQuery()->create($dto->toArray());
     }
 
-    public function update(Pipeline|int $pipeline, PipelineDTO $dto): Pipeline
+    public function update(Workflow|int $pipeline, WorkflowDTO $dto): Workflow
     {
         if (is_int($pipeline)) {
             $pipeline = parent::findById($pipeline);
@@ -36,7 +36,7 @@ class PipelineService extends BaseService
         return $pipeline;
     }
 
-    public function delete(Pipeline|int $pipeline): ?bool
+    public function delete(Workflow|int $pipeline): ?bool
     {
         if (is_int($pipeline)) {
             $pipeline = parent::findById($pipeline);

@@ -4,7 +4,7 @@ namespace App\Models\Tenant;
 
 use App\Enum\ActivationStatusEnum;
 
-class Pipeline extends BaseTenantModel
+class Workflow extends BaseTenantModel
 {
     protected $fillable = [
         'name',
