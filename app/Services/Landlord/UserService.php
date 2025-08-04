@@ -2,11 +2,14 @@
 
 namespace App\Services\Landlord;
 
+use App\DTOs\ChangePasswordDTO;
 use App\DTOs\UserDTO;
+use App\Mail\UserCredentialsMail;
 use App\Models\Landlord\Filters\UsersFilter;
 use App\Models\Landlord\User;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Mail;
 
 class UserService extends BaseService
 {
@@ -29,5 +32,26 @@ class UserService extends BaseService
     public function create(UserDTO $userDTO)
     {
         return $this->getQuery()->create($userDTO->toArray());
+    }
+
+    public function changePassword(ChangePasswordDTO $changePasswordDTO)
+    {
+        $user = $changePasswordDTO->user;
+        // Update the password
+        $is_updated = $user->update([
+            'password' => bcrypt($changePasswordDTO->password),
+        ]);
+        // Revoke all tokens (optional: for security, logs out all devices)
+        if ($changePasswordDTO->logout_other_devices) {
+            $user->tokens()->delete();
+        }
+        if ($is_updated) {
+            // Send email
+            //            Mail::to($user->email)->queue(new UserCredentialsMail(
+            //                user: $user,
+            //                password: $changePasswordDTO->password,
+            //                loginUrl: null, //todo get it from config and env files
+            //            ));
+        }
     }
 }

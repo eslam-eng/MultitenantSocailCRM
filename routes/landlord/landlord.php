@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Landlord\Auth\SendVerificationCodeController;
 use App\Http\Controllers\Api\Landlord\FeatureController;
 use App\Http\Controllers\Api\Landlord\PlanController;
 use App\Http\Controllers\Api\Landlord\TenantController;
+use App\Http\Controllers\Api\Landlord\UserController;
 use App\Http\Controllers\Api\LocaleController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,13 +37,19 @@ Route::prefix('auth')->group(function () {
     Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword']);
 });
 
+// for tenant and shared tables
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('profile', [UserController::class, 'profile']);
+    Route::post('change-password', [UserController::class, 'changePassword']);
+});
+
 Route::group(['middleware' => 'auth:landlord'], function () {
     Route::get('tenants/statics', [TenantController::class, 'statics']);
     Route::apiResource('tenants', TenantController::class);
     Route::get('plans/statics', [PlanController::class, 'statics']);
     Route::apiResource('plans', PlanController::class);
     Route::apiResource('features', FeatureController::class)->only(['index']);
-    Route::get('profile', [AdminController::class, 'profile']);
+    Route::get('admin/profile', [AdminController::class, 'profile']);
     Route::put('locale', [AdminController::class, 'updateLocale']);
 });
 // ✅ Handle unknown landlord routes

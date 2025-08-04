@@ -2,6 +2,7 @@
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Api\Tenant\CustomerController;
+use App\Http\Controllers\Api\Tenant\DepartmentController;
 use App\Http\Controllers\Api\Tenant\GroupController;
 use App\Http\Controllers\Api\Tenant\RoleController;
 use App\Http\Controllers\Api\Tenant\TemplateController;
@@ -11,9 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth:sanctum', 'tenant', 'locale']], function () {
     Route::group(['middleware' => 'skipTenantParameter'], function () {
-        Route::get('profile', [UserController::class, 'profile']);
-        Route::put('locale', [UserController::class, 'updateLocale']);
 
+        Route::put('locale', [UserController::class, 'updateLocale']);
         Route::get('customers/statics', [CustomerController::class, 'statics']);
         Route::apiResource('customers', CustomerController::class);
 
@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth:sanctum', 'tenant', 'locale']], function ()
         Route::get('permissions', [RoleController::class, 'permissionsList']);
         Route::apiResource('roles', RoleController::class);
         Route::apiResource('groups', GroupController::class);
+        Route::apiResource('departments', DepartmentController::class);
 
     });
 

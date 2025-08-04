@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Tenant;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangeLocalRequest;
-use App\Http\Resources\Tenant\AuthUserResource;
 
 class UserController extends Controller
 {
@@ -16,12 +15,5 @@ class UserController extends Controller
         $user->save();
 
         return ApiResponse::success(message: 'Locale updated successfully.');
-    }
-
-    public function profile()
-    {
-        $user = auth()->user();
-
-        return ApiResponse::success(data: AuthUserResource::make($user));
     }
 }

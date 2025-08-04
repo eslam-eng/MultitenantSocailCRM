@@ -7,7 +7,6 @@ use App\Models\Tenant\Group;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class GroupService extends BaseService
 {
@@ -19,13 +18,6 @@ class GroupService extends BaseService
     protected function baseQuery(): Builder
     {
         return Group::query();
-    }
-
-    public function paginate(array $filters = []): LengthAwarePaginator
-    {
-        return $this->getQuery($filters)
-            ->withCount('permissions')
-            ->paginate();
     }
 
     public function groups(array $filters = []): Collection

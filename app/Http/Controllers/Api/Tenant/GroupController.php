@@ -12,9 +12,7 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    public function __construct(protected readonly GroupService $groupService)
-    {
-    }
+    public function __construct(protected readonly GroupService $groupService) {}
 
     /**
      * Display a listing of the resource.
