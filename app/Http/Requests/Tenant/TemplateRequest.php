@@ -38,7 +38,7 @@ class TemplateRequest extends BaseFormRequest
             'is_active' => 'required|boolean',
             'media_id' => 'nullable|integer',
             // validate buttons
-            'template_buttons' => 'nullable|array|min:1',
+            'template_buttons' => 'nullable|array|min:1|max:3',
             'template_buttons.*.button_text' => 'required|string|max:255',
             'template_buttons.*.button_type' => ['required', Rule::in(ButtonTypeEnum::values())],
             'template_buttons.*.action_value' => 'required|string',

@@ -10,6 +10,7 @@ use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Spatie\Multitenancy\Exceptions\NoCurrentTenant;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ApiExceptionHandler
 {
@@ -21,6 +22,7 @@ class ApiExceptionHandler
 
         return match (true) {
             $e instanceof AuthenticationException => self::handleAuthenticationException($e, $request),
+            $e instanceof NotFoundHttpException => self::handleNoResourceNotfoundException($e, $request),
             $e instanceof AuthorizationException => ApiResponse::forbidden(message: 'Access denied.'),
             $e instanceof ThrottleRequestsException => self::handleThrottleException($e, $request),
             $e instanceof NoCurrentTenant => self::handleNoCurrentTenantException($e, $request),
@@ -40,6 +42,11 @@ class ApiExceptionHandler
     private static function handleNoCurrentTenantException(NoCurrentTenant $e, Request $request): JsonResponse
     {
         return ApiResponse::notFound(message: __('app.tenant_missing'));
+    }
+
+    private static function handleNoResourceNotfoundException(NotFoundHttpException $e, Request $request): JsonResponse
+    {
+        return ApiResponse::notFound(message: $e->getMessage());
     }
 
     private static function handleThrottleException(ThrottleRequestsException $e, Request $request): JsonResponse
