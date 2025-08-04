@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Tenant;
 
 use App\Http\Requests\BaseFormRequest;
-use Illuminate\Validation\Rule;
 
 class MovePipelineRequest extends BaseFormRequest
 {

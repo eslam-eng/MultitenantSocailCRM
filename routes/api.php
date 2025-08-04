@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth:sanctum', 'tenant', 'locale']], function ()
         Route::apiResource('roles', RoleController::class);
         Route::apiResource('groups', GroupController::class);
         Route::apiResource('departments', DepartmentController::class);
-        Route::post('pipelines/move', [PipelineController::class,'move']);
+        Route::post('pipelines/move', [PipelineController::class, 'move']);
         Route::apiResource('pipelines', PipelineController::class);
 
     });

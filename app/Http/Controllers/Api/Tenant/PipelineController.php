@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 
 class PipelineController extends Controller
 {
-    public function __construct(protected PipelineService $pipelineService)
-    {
-    }
+    public function __construct(protected PipelineService $pipelineService) {}
 
     public function index(Request $request)
     {
@@ -35,6 +33,7 @@ class PipelineController extends Controller
     {
         $dto = PipelineDTO::fromRequest($request);
         $this->pipelineService->create($dto);
+
         return ApiResponse::success(message: 'Pipeline created successfully.');
     }
 
@@ -42,6 +41,7 @@ class PipelineController extends Controller
     {
         $dto = PipelineDTO::fromRequest($request);
         $this->pipelineService->update(pipeline: $pipeline, dto: $dto);
+
         return ApiResponse::success(message: 'Pipeline updated successfully.');
     }
 
@@ -54,7 +54,7 @@ class PipelineController extends Controller
 
     public function move(MovePipelineRequest $request)
     {
-        $this->pipelineService->move(pipelineId: $request->pipeline_id, direction: $request->direction);;
+        $this->pipelineService->move(pipelineId: $request->pipeline_id, direction: $request->direction);
 
         return ApiResponse::success(message: 'Pipeline sorted successfully.');
     }

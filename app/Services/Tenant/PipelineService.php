@@ -66,7 +66,7 @@ class PipelineService extends BaseService
                     ->orderBy('sort_order', $order)
                     ->first();
 
-                if (!$swapTarget) {
+                if (! $swapTarget) {
                     return; // can't move further
                 }
 
@@ -77,5 +77,4 @@ class PipelineService extends BaseService
                 $swapTarget->save();
             });
     }
-
 }

@@ -10,7 +10,7 @@ class Pipeline extends BaseTenantModel
         'name',
         'description',
         'is_active',
-        'sort_order'
+        'sort_order',
     ];
 
     protected $casts = [
