@@ -18,7 +18,7 @@ class DepartmentController extends Controller
     {
         $filters = $request->all();
 
-        return DepartmentResource::collection($this->departmentService->paginate($filters));
+        return DepartmentResource::collection($this->departmentService->paginate(filters: $filters, limit: $request->get('limit', 15)));
     }
 
     public function show($id)

@@ -24,7 +24,7 @@ class CustomerController extends Controller
             'status' => $request->status ?? null,
         ], fn ($value) => ! is_null($value) && $value !== '');
 
-        $customers = $this->customerService->paginate($filters);
+        $customers = $this->customerService->paginate(filters: $filters, limit: $request->get('limit', 15));
 
         return CustomerResource::collection($customers);
     }

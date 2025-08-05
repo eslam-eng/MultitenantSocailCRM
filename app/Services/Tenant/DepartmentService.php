@@ -43,8 +43,8 @@ class DepartmentService extends BaseService
         return $department->delete();
     }
 
-    public function paginate(?array $filters = [])
+    public function paginate(?array $filters = [], int $limit = 15)
     {
-        return $this->getQuery($filters)->paginate();
+        return $this->getQuery($filters)->paginate($limit);
     }
 }

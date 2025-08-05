@@ -24,7 +24,7 @@ class TemplateController extends Controller
     {
         $filters = array_filter($request->all(), fn ($value) => ! is_null($value) && $value !== '');
 
-        $templates = $this->templateService->paginate($filters);
+        $templates = $this->templateService->paginate(filters: $filters, limit: $request->get('limit', 15));
 
         return TemplateResource::collection($templates);
     }
