@@ -33,7 +33,7 @@ class RoleService extends BaseService
     public function roles(array $filters = []): Collection
     {
         return $this->getQuery($filters)
-            ->withCount('permissions')
+            ->withCount(['permissions', 'users'])
             ->get();
     }
 

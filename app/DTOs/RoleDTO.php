@@ -12,6 +12,7 @@ class RoleDTO extends BaseDTO
     public function __construct(
         public string $name,
         public string $guard_name = 'web',
+        public ?string $description = null,
         public array $permissions = [],
         public bool $is_active = ActivationStatusEnum::ACTIVE->value,
     ) {}
@@ -20,6 +21,7 @@ class RoleDTO extends BaseDTO
     {
         return new self(
             name: $request->name,
+            description: $request->description,
             permissions: $request->get('permissions', []),
             is_active: $request->get('is_active'),
         );
@@ -32,6 +34,7 @@ class RoleDTO extends BaseDTO
     {
         return new self(
             name: Arr::get($data, 'name'),
+            description: Arr::get($data, 'description'),
             permissions: Arr::get($data, 'permissions'),
             is_active: Arr::get($data, 'is_active', ActivationStatusEnum::ACTIVE->value),
         );
@@ -41,6 +44,7 @@ class RoleDTO extends BaseDTO
     {
         return [
             'name' => $this->name,
+            'description' => $this->description,
             'guard_name' => $this->guard_name,
             'is_active' => $this->is_active,
         ];

@@ -72,13 +72,15 @@ class RoleController extends Controller
 
     public function permissionsList()
     {
-        $permissions = collect(PermissionsEnum::cases())->map(function ($permission) {
-            return [
-                'name' => $permission->getLabel(),
-                'value' => $permission->value,
-            ];
-        })->toArray();
+        $permissionGroups = collect(PermissionsEnum::cases())
+            ->groupBy(fn ($permission) => $permission->getGroup())
+            ->map(function ($group) {
+                return $group->map(fn ($permission) => [
+                    'name' => $permission->getLabel(),
+                    'value' => $permission->value,
+                ])->values(); // Reset keys
+            });
 
-        return ApiResponse::success(data: $permissions);
+        return ApiResponse::success(data: $permissionGroups);
     }
 }

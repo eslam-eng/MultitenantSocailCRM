@@ -17,10 +17,18 @@ class RoleResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
             'is_active' => $this->is_active->value,
             'is_active_text' => $this->is_active->getLabel(),
             'permissions_count' => $this->whenCounted('permissions'),
-            'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
+            'users_count' => $this->whenCounted('users'),
+            'permissions' => $this->whenLoaded('permissions', function () {
+                return $this->permissions
+                    ->groupBy('group')
+                    ->map(fn ($groupPermissions) => PermissionResource::collection($groupPermissions))
+                    ->toArray();
+            }),
+            //            'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
         ];
     }
 }

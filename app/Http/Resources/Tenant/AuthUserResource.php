@@ -24,6 +24,8 @@ class AuthUserResource extends JsonResource
             'tenant_slug' => $this->tenant?->slug,
             'is_verified' => isset($this->email_verified_at),
             'belongs_to' => 'TENANT',
+            'role' => 'role',
+            'permissions' => [],
         ];
     }
 }
