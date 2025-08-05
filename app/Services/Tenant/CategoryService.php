@@ -2,13 +2,14 @@
 
 namespace App\Services\Tenant;
 
-use App\DTOs\SegmentDTO;
-use App\Models\Campaign;
-use App\Models\Segment;
+use App\DTOs\CategoryDTO;
+use App\Enum\SupportedLocalesEnum;
+use App\Models\Tenant\Category;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class CategoryService extends BaseService
 {
@@ -19,14 +20,29 @@ class CategoryService extends BaseService
 
     protected function baseQuery(): Builder
     {
-        return Segment::query();
+        return Category::query();
     }
 
     /**
      * @throws \Throwable
      */
-    public function create(SegmentDTO $dto): Campaign
+    public function create(CategoryDTO $dto): Category
     {
+        $names = $dto->name;
+        // Determine fallback:
+        $fallback = Arr::get($names, 'en')
+            ?? collect($names)->filter(fn ($v, $k) => $k !== 'ar')->first()
+            ?? Arr::get($names, 'ar');
+
+        // Fill missing translations
+        foreach (SupportedLocalesEnum::values() as $locale) {
+            if (empty($names[$locale])) {
+                $names[$locale] = $fallback;
+            }
+        }
+
+        $dto->name = $names;
+
         return $this->getQuery()->create($dto->toArray());
 
     }
@@ -36,18 +52,39 @@ class CategoryService extends BaseService
         return $this->getQuery($filters)->paginate();
     }
 
-    public function update(int $id, SegmentDTO $dto): Model
+    public function list(array $filters = [], array $withRelations = [])
     {
-        $segment = $this->findById($id);
-        $segment->update($dto->toArray());
+        return $this->getQuery($filters)->with($withRelations)->get()->toTree();
+    }
 
-        return $segment;
+    public function update(int $id, CategoryDTO $dto): Model
+    {
+        $category = $this->findById($id);
+        $names = $dto->name;
+
+        // Determine fallback:
+        $fallback = Arr::get($names, 'en')
+            ?? collect($names)->filter(fn ($v, $k) => $k !== 'ar')->first()
+            ?? $names['ar'];
+
+        // Fill missing translations
+        foreach (SupportedLocalesEnum::values() as $locale) {
+            if (empty($names[$locale])) {
+                $names[$locale] = $fallback;
+            }
+        }
+
+        $dto->name = $names;
+
+        $category->update($dto->toArray());
+
+        return $category;
     }
 
     public function delete(int $id): bool
     {
-        $segment = $this->findById($id);
+        $category = $this->findById($id);
 
-        return $segment->delete();
+        return $category->delete();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\ApiResponse;
+use App\Http\Controllers\Api\Tenant\CategoryController;
 use App\Http\Controllers\Api\Tenant\CustomerController;
 use App\Http\Controllers\Api\Tenant\DepartmentController;
 use App\Http\Controllers\Api\Tenant\GroupController;
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['auth:sanctum', 'tenant', 'locale']], function ()
         Route::apiResource('departments', DepartmentController::class);
         Route::post('pipelines/move', [WorkflowController::class, 'move']);
         Route::apiResource('pipelines', WorkflowController::class);
+        Route::apiResource('categories', CategoryController::class);
 
     });
 

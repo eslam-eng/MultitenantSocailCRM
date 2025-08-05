@@ -31,9 +31,10 @@ class DepartmentController extends Controller
     public function store(DepartmentRequest $request)
     {
         $dto = DepartmentDTO::fromRequest($request);
-        $department = $this->departmentService->create($dto);
 
-        return ApiResponse::success(data: DepartmentResource::make($department), message: 'Department created successfully.');
+        $this->departmentService->create($dto);
+
+        return ApiResponse::success(message: 'Department created successfully.');
     }
 
     public function update(DepartmentRequest $request, $department)
