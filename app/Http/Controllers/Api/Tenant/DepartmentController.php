@@ -12,13 +12,15 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    public function __construct(protected DepartmentService $departmentService) {}
+    public function __construct(protected DepartmentService $departmentService)
+    {
+    }
 
     public function index(Request $request)
     {
         $filters = $request->all();
 
-        return DepartmentResource::collection($this->departmentService->paginate(filters: $filters, limit: $request->get('limit', 15)));
+        return DepartmentResource::collection($this->departmentService->list(filters: $filters));
     }
 
     public function show($id)

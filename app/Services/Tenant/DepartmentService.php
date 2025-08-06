@@ -47,4 +47,9 @@ class DepartmentService extends BaseService
     {
         return $this->getQuery($filters)->paginate($limit);
     }
+
+    public function list(?array $filters = [])
+    {
+        return $this->getQuery($filters)->get();
+    }
 }

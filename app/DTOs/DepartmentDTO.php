@@ -2,7 +2,7 @@
 
 namespace App\DTOs;
 
-use App\DTOS\Abstract\BaseDTO;
+use App\DTOs\Abstract\BaseDTO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
