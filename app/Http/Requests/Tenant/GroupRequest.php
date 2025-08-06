@@ -35,7 +35,7 @@ class GroupRequest extends BaseFormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'is_active' => $this->get('status', ActivationStatusEnum::ACTIVE->value),
+            'is_active' => $this->boolean('is_active'),
         ]);
     }
 }
