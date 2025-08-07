@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Landlord;
 
-use App\DTOs\AuthCredentialsDTO;
+use App\DTOs\Landlord\AuthCredentialsDTO;
 use App\Helpers\ApiResponse;
 use App\Http\Requests\Landlord\AuthFormRequest;
 use App\Http\Resources\Landlord\AuthUserResource;

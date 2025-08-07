@@ -2,7 +2,7 @@
 
 namespace App\Services\Landlord\Plan;
 
-use App\DTOs\PlanDTO;
+use App\DTOs\Landlord\PlanDTO;
 use App\Enum\SupportedLocalesEnum;
 use App\Models\Landlord\Filters\PlanFilters;
 use App\Models\Landlord\Plan;

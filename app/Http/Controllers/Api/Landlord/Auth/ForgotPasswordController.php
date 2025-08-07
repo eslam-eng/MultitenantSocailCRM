@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Landlord\Auth;
 
-use App\DTOs\RestPasswordDTO;
+use App\DTOs\Landlord\RestPasswordDTO;
 use App\Exceptions\VerificationCode\CodeExpiredException;
 use App\Exceptions\VerificationCode\CodeNotFoundException;
 use App\Exceptions\VerificationCode\MaxAttemptsExceededException;

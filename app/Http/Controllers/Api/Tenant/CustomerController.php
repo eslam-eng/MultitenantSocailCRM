@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Tenant;
 
-use App\DTOs\CustomerDTO;
+use App\DTOs\Tenant\CustomerDTO;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\CustomerRequest;

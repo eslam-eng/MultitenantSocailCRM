@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Tenant;
 
-use App\Enum\ActivationStatusEnum;
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
 

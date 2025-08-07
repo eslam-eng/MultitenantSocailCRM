@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth:sanctum', 'tenant', 'locale']], function ()
         Route::post('pipelines/move', [WorkflowController::class, 'move']);
         Route::apiResource('pipelines', WorkflowController::class);
         Route::apiResource('categories', CategoryController::class);
-
+        Route::apiResource('users', UserController::class);
     });
 
     Route::fallback(function () {

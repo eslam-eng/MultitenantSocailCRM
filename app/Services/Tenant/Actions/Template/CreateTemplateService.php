@@ -2,7 +2,7 @@
 
 namespace App\Services\Tenant\Actions\Template;
 
-use App\DTOs\Template\TemplateDTO;
+use App\DTOs\Tenant\TemplateDTO;
 use App\Models\Tenant\Template;
 use App\Models\Tenant\TemplateButton;
 use App\Models\Tenant\TemplateVariable;

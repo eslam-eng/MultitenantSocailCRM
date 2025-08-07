@@ -2,7 +2,6 @@
 
 namespace App\Services\Tenant;
 
-use App\DTOs\UserDTO;
 use App\Models\Tenant\Filters\UsersFilter;
 use App\Models\Tenant\User;
 use App\Services\BaseService;
@@ -24,10 +23,5 @@ class UserService extends BaseService
     protected function baseQuery(): Builder
     {
         return User::query();
-    }
-
-    public function create(UserDTO $userDTO)
-    {
-        return $this->getQuery()->create($userDTO->toArray());
     }
 }

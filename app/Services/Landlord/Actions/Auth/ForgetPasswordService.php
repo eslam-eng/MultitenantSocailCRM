@@ -2,7 +2,7 @@
 
 namespace App\Services\Landlord\Actions\Auth;
 
-use App\DTOs\RestPasswordDTO;
+use App\DTOs\Landlord\RestPasswordDTO;
 use App\Enum\VerificationCodeType;
 use App\Services\BaseService;
 use App\Services\Landlord\UserService;

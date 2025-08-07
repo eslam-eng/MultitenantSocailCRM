@@ -2,7 +2,7 @@
 
 namespace App\Services\Landlord\Actions\Auth;
 
-use App\DTOs\AuthCredentialsDTO;
+use App\DTOs\Landlord\AuthCredentialsDTO;
 use App\Models\Landlord\User;
 use App\Services\Landlord\UserService;
 use Illuminate\Support\Facades\Hash;

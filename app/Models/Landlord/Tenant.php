@@ -2,7 +2,10 @@
 
 namespace App\Models\Landlord;
 
+use App\Traits\HasFeatureLimits;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Tenant extends \Spatie\Multitenancy\Models\Tenant
 {
-    use SoftDeletes;
+    use HasFeatureLimits,SoftDeletes;
 
     protected $fillable = [
         'name', 'slug', 'database', 'status',
@@ -23,6 +26,11 @@ class Tenant extends \Spatie\Multitenancy\Models\Tenant
             ->withTimestamps()
             ->using(TenantUser::class);
 
+    }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
     }
 
     // Get owner user directly through pivot
@@ -63,9 +71,20 @@ class Tenant extends \Spatie\Multitenancy\Models\Tenant
 
     }
 
-    public function subscription()
+    public function latestSubscription()
     {
         return $this->hasOne(Subscription::class)->latestOfMany(); // latest active
+    }
+
+    public function activeSubscriptions(): Builder|HasMany
+    {
+        return $this->subscriptions()
+            ->where('status', 'active')
+            ->where('starts_at', '<=', now())
+            ->where(function ($query) {
+                $query->whereNull('ends_at')
+                    ->orWhere('ends_at', '>', now());
+            });
     }
 
     public static function createDatabase($database_name): bool

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Tenant;
 
-use App\DTOs\DepartmentDTO;
+use App\DTOs\Tenant\DepartmentDTO;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\DepartmentRequest;
@@ -12,9 +12,7 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    public function __construct(protected DepartmentService $departmentService)
-    {
-    }
+    public function __construct(protected DepartmentService $departmentService) {}
 
     public function index(Request $request)
     {

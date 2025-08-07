@@ -2,7 +2,7 @@
 
 namespace App\Services\Tenant;
 
-use App\DTOs\DepartmentDTO;
+use App\DTOs\Tenant\DepartmentDTO;
 use App\Models\Tenant\Department;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;

@@ -2,7 +2,7 @@
 
 namespace App\Services\Landlord\Plan;
 
-use App\DTOs\SubscriptionPlanDTO;
+use App\DTOs\Landlord\SubscriptionPlanDTO;
 use App\Models\Landlord\Filters\SubscriptionFilters;
 use App\Models\Landlord\Subscription;
 use App\Services\BaseService;

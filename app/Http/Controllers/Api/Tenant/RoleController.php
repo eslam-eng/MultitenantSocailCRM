@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Tenant;
 
-use App\DTOs\RoleDTO;
+use App\DTOs\Tenant\RoleDTO;
 use App\Enum\PermissionsEnum;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;

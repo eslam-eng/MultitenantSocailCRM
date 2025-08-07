@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs\Campaign;
+namespace App\DTOs\Tenant;
 
 use App\DTOS\Abstract\BaseDTO;
 use App\Enum\CampaignTargetEnum;

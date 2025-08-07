@@ -2,7 +2,7 @@
 
 namespace App\Services\Landlord\Tenant;
 
-use App\DTOs\TenantDTO;
+use App\DTOs\Landlord\TenantDTO;
 use App\Enum\SubscriptionStatusEnum;
 use App\Models\Landlord\Tenant;
 use App\Models\Landlord\User;

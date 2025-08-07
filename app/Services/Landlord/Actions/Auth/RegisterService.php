@@ -2,8 +2,8 @@
 
 namespace App\Services\Landlord\Actions\Auth;
 
-use App\DTOs\SubscriptionPlanDTO;
-use App\DTOs\TenantDTO;
+use App\DTOs\Landlord\SubscriptionPlanDTO;
+use App\DTOs\Landlord\TenantDTO;
 use App\DTOs\UserDTO;
 use App\Models\Landlord\Plan;
 use App\Models\Landlord\Subscription;

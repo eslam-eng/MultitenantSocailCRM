@@ -2,7 +2,7 @@
 
 namespace App\Services\Tenant;
 
-use App\DTOs\Campaign\CampaignDTO;
+use App\DTOs\Tenant\CampaignDTO;
 use App\Models\Campaign;
 use App\Models\Filters\CampaignFilters;
 use App\Services\BaseService;

@@ -2,14 +2,12 @@
 
 namespace App\Services\Landlord;
 
-use App\DTOs\ChangePasswordDTO;
+use App\DTOs\Landlord\ChangePasswordDTO;
 use App\DTOs\UserDTO;
-use App\Mail\UserCredentialsMail;
 use App\Models\Landlord\Filters\UsersFilter;
 use App\Models\Landlord\User;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Mail;
 
 class UserService extends BaseService
 {

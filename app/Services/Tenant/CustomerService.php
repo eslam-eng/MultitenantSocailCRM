@@ -2,7 +2,7 @@
 
 namespace App\Services\Tenant;
 
-use App\DTOs\CustomerDTO;
+use App\DTOs\Tenant\CustomerDTO;
 use App\Enum\CustomerStatusEnum;
 use App\Models\Tenant\Customer;
 use App\Models\Tenant\Filters\CustomersFilter;

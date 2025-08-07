@@ -1,51 +1,57 @@
 <?php
 
-namespace App\DTOs;
+namespace App\DTOs\Tenant;
 
 use App\DTOs\Abstract\BaseDTO;
 use App\Enum\ActivationStatusEnum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-class RoleDTO extends BaseDTO
+class GroupDTO extends BaseDTO
 {
     public function __construct(
         public string $name,
-        public string $guard_name = 'web',
         public ?string $description = null,
-        public array $permissions = [],
-        public bool $is_active = ActivationStatusEnum::ACTIVE->value,
+        public ?string $color = null,
+        public ?int $is_active = ActivationStatusEnum::ACTIVE->value,
     ) {}
 
+    /**
+     * Create DTO from HTTP request
+     */
     public static function fromRequest(Request $request): static
     {
-        return new self(
+        return new static(
             name: $request->name,
             description: $request->description,
-            permissions: $request->get('permissions', []),
-            is_active: $request->get('is_active'),
+            color: $request->color,
+            is_active: $request->is_active,
         );
     }
 
     /**
-     * @return $this
+     * Create DTO from array
      */
     public static function fromArray(array $data): static
     {
-        return new self(
+        return new static(
             name: Arr::get($data, 'name'),
             description: Arr::get($data, 'description'),
-            permissions: Arr::get($data, 'permissions'),
-            is_active: Arr::get($data, 'is_active', ActivationStatusEnum::ACTIVE->value),
+            color: Arr::get($data, 'color'),
+            is_active: Arr::get($data, 'is_active'),
+
         );
     }
 
+    /**
+     * Convert DTO to array
+     */
     public function toArray(): array
     {
         return [
             'name' => $this->name,
             'description' => $this->description,
-            'guard_name' => $this->guard_name,
+            'color' => $this->color,
             'is_active' => $this->is_active,
         ];
     }

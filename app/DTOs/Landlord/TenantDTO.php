@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs;
+namespace App\DTOs\Landlord;
 
 use App\DTOs\Abstract\BaseDTO;
 use App\Enum\ActivationStatusEnum;

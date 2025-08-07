@@ -7,6 +7,7 @@ use App\Enum\SupportedLocalesEnum;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -17,7 +18,7 @@ use Spatie\Multitenancy\Models\Concerns\UsesLandlordConnection;
 class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\Landlord\UserFactory> */
-    use Filterable, HasApiTokens, HasFactory, InteractsWithMedia, Notifiable,UsesLandlordConnection;
+    use Filterable, HasApiTokens, HasFactory, InteractsWithMedia, Notifiable, SoftDeletes,UsesLandlordConnection;
 
     /**
      * The attributes that are mass assignable.
@@ -25,10 +26,8 @@ class User extends Authenticatable implements HasMedia
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'tenant_id',
+        'name', 'email_verified_at',
+        'email', 'password', 'tenant_id',
     ];
 
     /**

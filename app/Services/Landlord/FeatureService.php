@@ -2,7 +2,7 @@
 
 namespace App\Services\Landlord;
 
-use App\DTOs\FeatureDTO;
+use App\DTOs\Tenant\FeatureDTO;
 use App\Models\Landlord\Feature;
 use App\Models\Landlord\Filters\FeaturesFilter;
 use App\Services\BaseService;

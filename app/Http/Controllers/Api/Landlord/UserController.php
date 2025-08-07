@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Landlord;
 
-use App\DTOs\ChangePasswordDTO;
+use App\DTOs\Landlord\ChangePasswordDTO;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\ChangePasswordRequest;

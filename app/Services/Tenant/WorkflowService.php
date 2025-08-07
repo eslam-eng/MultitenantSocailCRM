@@ -2,7 +2,7 @@
 
 namespace App\Services\Tenant;
 
-use App\DTOs\WorkflowDTO;
+use App\DTOs\Tenant\WorkflowDTO;
 use App\Models\Tenant\Workflow;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;

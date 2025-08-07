@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs;
+namespace App\DTOs\Landlord;
 
 use App\DTOS\Abstract\BaseDTO;
 use App\Models\Landlord\User;

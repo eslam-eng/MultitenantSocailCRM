@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Landlord;
 
-use App\DTOs\PlanDTO;
+use App\DTOs\Landlord\PlanDTO;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Landlord\PlanRequest;

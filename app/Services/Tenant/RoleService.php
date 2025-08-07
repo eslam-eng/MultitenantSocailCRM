@@ -2,7 +2,7 @@
 
 namespace App\Services\Tenant;
 
-use App\DTOs\RoleDTO;
+use App\DTOs\Tenant\RoleDTO;
 use App\Models\Tenant\Role;
 use App\Services\BaseService;
 use Illuminate\Database\Eloquent\Builder;

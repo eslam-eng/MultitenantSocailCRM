@@ -11,6 +11,8 @@ use App\Patterns\States\Subscription\SubscriptionState;
 use App\Patterns\States\Subscription\SuspendedState;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
 
 class Subscription extends BaseLandlordModel
@@ -45,10 +47,16 @@ class Subscription extends BaseLandlordModel
         return $this->belongsTo(Tenant::class);
     }
 
-    public function features()
+    // Since FeatureSubscription extends Pivot, you can also define the relationship like this:
+    public function featureSubscriptions(): Subscription|HasMany
+    {
+        return $this->hasMany(FeatureSubscription::class);
+    }
+
+    public function features(): BelongsToMany
     {
         return $this->belongsToMany(Feature::class, 'feature_subscriptions')
-            ->withPivot('value', 'usage')
+            ->withPivot('value', 'usage', 'slug', 'name', 'group')
             ->using(FeatureSubscription::class);
     }
 
@@ -60,6 +68,18 @@ class Subscription extends BaseLandlordModel
             get: fn () => Arr::get($this->plan_snapshot, 'name.'.$locale, $this->plan_snapshot['name']['en']) ?? null
         );
 
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status == SubscriptionStatusEnum::ACTIVE &&
+            $this->starts_at <= now() &&
+            ($this->ends_at == null || $this->ends_at > now());
+    }
+
+    public function getFeatureBySlug(string $slug): ?BaseLandlordModel
+    {
+        return $this->featureSubscriptions()->where('slug', $slug)->first();
     }
 
     public function setState(SubscriptionState $state): void

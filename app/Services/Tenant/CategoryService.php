@@ -2,7 +2,7 @@
 
 namespace App\Services\Tenant;
 
-use App\DTOs\CategoryDTO;
+use App\DTOs\Tenant\CategoryDTO;
 use App\Enum\SupportedLocalesEnum;
 use App\Models\Tenant\Category;
 use App\Services\BaseService;
